@@ -58,3 +58,4 @@ export function getAdjacentDocs(currentId: string): { prev?: DocItem; next?: Doc
     next: index < ALL_DOC_ITEMS.length - 1 ? ALL_DOC_ITEMS[index + 1] : undefined,
   };
 }
+

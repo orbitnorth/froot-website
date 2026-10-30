@@ -9,9 +9,9 @@
     "start": "frootkit start"
   },
   "dependencies": {
-    "froot-kit": "link:../frootkit",
-    "frootkit": "link:../frootkit",
-    "frootjs": "link:../froot-framework",
+    "froot-kit": "^1.2.3",
+    "frootkit": "npm:froot-kit@^1.2.3",
+    "frootjs": "^1.0.6",
     "preact": "^11.1.0",
     "preact-render-to-string": "^6.8.2"
   },
@@ -19,6 +19,7 @@
     "@tailwindcss/cli": "^4.3.3",
     "@types/node": "^22.10.0",
     "tailwindcss": "^4.3.3",
+    "tsx": "^4.19.2",
     "typescript": "^5.8.0"
   }
 }
