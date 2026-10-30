@@ -1,0 +1,24 @@
+{
+  "name": "froot-website",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "frootkit dev",
+    "build": "frootkit build",
+    "start": "frootkit start"
+  },
+  "dependencies": {
+    "froot-kit": "link:../frootkit",
+    "frootkit": "link:../frootkit",
+    "frootjs": "link:../froot-framework",
+    "preact": "^11.1.0",
+    "preact-render-to-string": "^6.8.2"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "@types/node": "^22.10.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.8.0"
+  }
+}
