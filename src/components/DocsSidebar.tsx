@@ -1,4 +1,6 @@
-/** @jsxImportSource preact */
+/** @jsx h */
+/** @jsxFrag Fragment */
+import { h, Fragment } from 'preact';
 import { UNIFIED_DOCS_NAV } from '../data/docs-nav.js';
 
 export function DocsSidebar({ currentSlug }: { currentSlug: string }) {

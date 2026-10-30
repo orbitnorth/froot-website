@@ -1,5 +1,6 @@
-/** @jsxImportSource preact */
-import type { ComponentChildren } from 'preact';
+/** @jsx h */
+/** @jsxFrag Fragment */
+import { h, Fragment, type ComponentChildren } from 'preact';
 import { DocsSidebar } from './DocsSidebar.js';
 
 export interface DocsLayoutProps {

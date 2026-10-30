@@ -1,5 +1,6 @@
-/** @jsxImportSource preact */
-import type { ComponentChildren } from 'preact';
+/** @jsx h */
+/** @jsxFrag Fragment */
+import { h, Fragment, type ComponentChildren } from 'preact';
 
 export default function RootLayout({ children }: { children: ComponentChildren }) {
   return (

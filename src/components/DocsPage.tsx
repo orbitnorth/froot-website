@@ -1,4 +1,6 @@
-/** @jsxImportSource preact */
+/** @jsx h */
+/** @jsxFrag Fragment */
+import { h, Fragment } from 'preact';
 import type { DocItem } from '../data/docs-nav.js';
 
 export interface HeadingItem {
@@ -108,15 +110,15 @@ export function DocsPage({
             On This Page
           </h5>
           <ul class="space-y-2">
-            {filteredHeadings.map((h) => (
-              <li key={h.id}>
+            {filteredHeadings.map((item) => (
+              <li key={item.id}>
                 <a
-                  href={`#${h.id}`}
+                  href={`#${item.id}`}
                   class={`block text-slate-400 hover:text-emerald-400 transition-colors ${
-                    h.level === 3 ? 'pl-3 text-[11px] text-slate-400' : 'font-medium'
+                    item.level === 3 ? 'pl-3 text-[11px] text-slate-400' : 'font-medium'
                   }`}
                 >
-                  {h.text}
+                  {item.text}
                 </a>
               </li>
             ))}

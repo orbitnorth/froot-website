@@ -1,4 +1,6 @@
-/** @jsxImportSource preact */
+/** @jsx h */
+/** @jsxFrag Fragment */
+import { h, Fragment } from 'preact';
 import { getDoc } from 'frootkit';
 import { DocsPage } from '../../components/DocsPage.js';
 import { getAdjacentDocs } from '../../data/docs-nav.js';

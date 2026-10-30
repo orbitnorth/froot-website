@@ -1,4 +1,6 @@
-/** @jsxImportSource preact */
+/** @jsx h */
+/** @jsxFrag Fragment */
+import { h, Fragment } from 'preact';
 import { highlightCode } from 'frootkit';
 
 const CODE_SNIPPETS: Record<string, string> = {
