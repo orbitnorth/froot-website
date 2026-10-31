@@ -40,7 +40,7 @@ export function DocsLayout({ currentPath, currentSlug, children }: DocsLayoutPro
           </button>
 
           <a href="/" class="text-xs text-slate-400 hover:text-emerald-400 flex items-center gap-1">
-            <span>&larr; Home</span>
+            <span>← Home</span>
           </a>
         </div>
 
@@ -52,7 +52,7 @@ export function DocsLayout({ currentPath, currentSlug, children }: DocsLayoutPro
         {/* Minimal Docs Footer */}
         <footer class="mt-auto border-t border-slate-800/80 py-6 px-6 text-center text-xs text-slate-400">
           <p>
-            Froot &amp; FrootKit Documentation &bull; Built with FrootKit SSG & Preact SSR &bull;{' '}
+            Froot &amp; FrootKit Documentation • Built with FrootKit SSG & Preact SSR •{' '}
             <a href="https://github.com/orbitnorth/froot" class="text-emerald-400 hover:underline">
               GitHub
             </a>

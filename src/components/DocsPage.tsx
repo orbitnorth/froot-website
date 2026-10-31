@@ -76,7 +76,7 @@ export function DocsPage({
                 class="group p-4 rounded-xl bg-[#070b13] border border-slate-800/80 hover:border-emerald-500/40 transition-all flex flex-col justify-between"
               >
                 <span class="text-[11px] font-mono uppercase tracking-wider text-slate-400 group-hover:text-emerald-400 transition-colors">
-                  &larr; Previous
+                  ← Previous
                 </span>
                 <span class="text-sm font-semibold text-white mt-1 group-hover:text-emerald-300 transition-colors">
                   {prev.title}
@@ -92,7 +92,7 @@ export function DocsPage({
                 class="group p-4 rounded-xl bg-[#070b13] border border-slate-800/80 hover:border-emerald-500/40 transition-all flex flex-col justify-between text-right"
               >
                 <span class="text-[11px] font-mono uppercase tracking-wider text-slate-400 group-hover:text-emerald-400 transition-colors">
-                  Next &rarr;
+                  Next →
                 </span>
                 <span class="text-sm font-semibold text-white mt-1 group-hover:text-emerald-300 transition-colors">
                   {next.title}

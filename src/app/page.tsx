@@ -124,7 +124,7 @@ export default function UnifiedLandingPage() {
             </a>
 
             <a href="/docs" class="btn-primary">
-              Get Started &rarr;
+              Get Started →
             </a>
           </div>
         </div>
@@ -137,7 +137,7 @@ export default function UnifiedLandingPage() {
             {/* Left Column: Value Proposition & Commands (7 cols) */}
             <div class="lg:col-span-7">
               <div class="text-xs font-mono font-medium text-emerald-400 mb-4 tracking-wide uppercase">
-                Monomorphic V8 Engine &bull; Next.js App Router Architecture
+                Monomorphic V8 Engine • Next.js App Router Architecture
               </div>
 
               <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-[1.1] mb-6">
@@ -150,7 +150,7 @@ export default function UnifiedLandingPage() {
 
               <div class="flex flex-wrap items-center gap-4 mb-8">
                 <a href="/docs" class="btn-primary">
-                  Read Documentation &rarr;
+                  Read Documentation →
                 </a>
                 <a
                   href="#benchmarks"
@@ -211,7 +211,7 @@ export default function UnifiedLandingPage() {
                   <div class="pb-3 border-b border-[#1a2333]">
                     <div class="text-[11px] text-slate-400 uppercase tracking-wider mb-1 font-semibold">Router Pipeline</div>
                     <div class="text-emerald-400 font-bold">Tri-Tier Monomorphic Dispatch</div>
-                    <div class="text-slate-400 text-[11px] mt-1">&rarr; O(1) Hash Map &bull; Compressed Radix &bull; RegExp</div>
+                    <div class="text-slate-400 text-[11px] mt-1">→ O(1) Hash Map • Compressed Radix • RegExp</div>
                   </div>
 
                   <div class="grid grid-cols-2 gap-3 pb-3 border-b border-[#1a2333]">
@@ -298,7 +298,7 @@ export default function UnifiedLandingPage() {
                 <div class="pt-6 border-t border-[#1a2333] flex items-center justify-between">
                   <span class="text-xs font-mono text-slate-400">Starter, Blog, Store, Auth</span>
                   <a href="/docs/frootkit" class="text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition-colors">
-                    FrootKit Guide &rarr;
+                    FrootKit Guide →
                   </a>
                 </div>
               </div>
@@ -320,19 +320,19 @@ export default function UnifiedLandingPage() {
 
                   <ul class="space-y-3 text-xs text-slate-300 mb-8 font-mono">
                     <li class="flex items-start gap-2.5">
-                      <span class="text-cyan-400 font-bold">&check;</span>
+                      <span class="text-cyan-400 font-bold">✓</span>
                       <span>Tri-Tier routing engine with O(1) static route table</span>
                     </li>
                     <li class="flex items-start gap-2.5">
-                      <span class="text-cyan-400 font-bold">&check;</span>
+                      <span class="text-cyan-400 font-bold">✓</span>
                       <span>Zero V8 hidden class transitions during execution</span>
                     </li>
                     <li class="flex items-start gap-2.5">
-                      <span class="text-cyan-400 font-bold">&check;</span>
+                      <span class="text-cyan-400 font-bold">✓</span>
                       <span>Built-in JWT, AES-GCM, WebSockets &amp; Server-Sent Events</span>
                     </li>
                     <li class="flex items-start gap-2.5">
-                      <span class="text-cyan-400 font-bold">&check;</span>
+                      <span class="text-cyan-400 font-bold">✓</span>
                       <span>Standard Fetch API compatibility (Request / Response)</span>
                     </li>
                   </ul>
@@ -341,7 +341,7 @@ export default function UnifiedLandingPage() {
                 <div class="pt-6 border-t border-[#1a2333] flex items-center justify-between">
                   <span class="text-xs font-mono text-slate-400">npm create frootjs@latest</span>
                   <a href="/docs/quickstart" class="text-xs font-semibold text-cyan-400 hover:text-cyan-300 transition-colors">
-                    Backend Guide &rarr;
+                    Backend Guide →
                   </a>
                 </div>
               </div>
@@ -485,7 +485,7 @@ export default function UnifiedLandingPage() {
             </p>
             <div class="flex flex-wrap items-center justify-center gap-4">
               <a href="/docs/quickstart" class="btn-primary">
-                Quickstart Guide &rarr;
+                Quickstart Guide →
               </a>
               <a
                 href="https://github.com/orbitnorth/froot"
@@ -505,7 +505,7 @@ export default function UnifiedLandingPage() {
         <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-mono">
           <div class="flex items-center gap-2">
             <span class="font-bold text-white">Froot Ecosystem</span>
-            <span>&bull;</span>
+            <span>•</span>
             <span>OrbitNorth LLC</span>
           </div>
           <div class="flex items-center gap-6">

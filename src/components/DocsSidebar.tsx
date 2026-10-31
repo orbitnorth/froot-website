@@ -26,7 +26,7 @@ export function DocsSidebar({ currentSlug }: { currentSlug: string }) {
         </a>
 
         <a href="/" class="text-xs text-slate-400 hover:text-white transition-colors" title="Back to Home">
-          &larr; Home
+          ← Home
         </a>
       </div>
 
