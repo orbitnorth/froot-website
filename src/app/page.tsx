@@ -103,6 +103,10 @@ export default function UnifiedLandingPage() {
 
           <nav class="hidden md:flex items-center gap-6 text-xs font-medium text-zinc-400">
             <a href="#ecosystem" class="hover:text-white transition-colors">Ecosystem</a>
+            <a href="#frootui" class="text-indigo-400 hover:text-indigo-300 font-semibold transition-colors flex items-center gap-1">
+              <span>FrootUI</span>
+              <span class="text-[9px] px-1 py-0.2 rounded bg-indigo-500/10 border border-indigo-500/20 uppercase tracking-wider">Stripe</span>
+            </a>
             <a href="#benchmarks" class="hover:text-white transition-colors">Benchmarks</a>
             <a href="#code" class="hover:text-white transition-colors">Architecture</a>
             <a href="/docs" class="text-zinc-200 hover:text-white transition-colors">
@@ -355,7 +359,211 @@ export default function UnifiedLandingPage() {
           </div>
         </section>
 
-        {/* Benchmarks Section */}
+        {/* FrootUI (Stripe Design System & shadcn CLI) Showcase Section */}
+        <section class="py-20 border-b border-white/[0.08] relative overflow-hidden" id="frootui">
+          {/* Subtle Stripe ambient mesh in background */}
+          <div class="absolute -right-32 top-10 w-96 h-96 rounded-full bg-[#533afd]/10 blur-3xl pointer-events-none" />
+
+          <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
+              <div>
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#533afd]/10 border border-[#533afd]/25 text-indigo-400 text-xs font-medium mb-3">
+                  <span class="w-1.5 h-1.5 rounded-full bg-[#533afd]" />
+                  <span>Stripe Design System • shadcn Component Architecture</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-semibold text-white tracking-[-0.025em] mb-2">
+                  FrootUI: Modular Components with Zero Lock-In.
+                </h2>
+                <p class="text-zinc-400 text-base max-w-2xl leading-relaxed">
+                  Crafted around Stripe&apos;s voltage palette (`#533afd`), multi-layer blue shadows, and tabular numbers. Copy component source directly into your project with the CLI or import as an NPM package.
+                </p>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-3">
+                <a
+                  href="/docs/frootui"
+                  class="btn-primary"
+                >
+                  <span>Explore FrootUI Docs</span>
+                  <span class="text-zinc-500">→</span>
+                </a>
+              </div>
+            </div>
+
+            {/* Interactive Stripe UI Mockup Grid */}
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+              {/* Left Column: Stripe Financial Card Preview (7 cols) */}
+              <div class="lg:col-span-7 space-y-5">
+                {/* Stripe Metric KPI Row */}
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div class="surface-card p-5 relative overflow-hidden">
+                    <div class="flex items-center justify-between mb-3">
+                      <span class="text-xs font-medium text-zinc-400">Gross Settlement Volume</span>
+                      <span class="inline-flex items-center gap-1 text-[11px] font-medium px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                        <span>↑</span>
+                        <span class="tabular-nums">+18.4%</span>
+                      </span>
+                    </div>
+                    <div class="flex items-baseline justify-between gap-4">
+                      <div class="text-2xl sm:text-3xl font-semibold tracking-tight text-white tabular-nums">
+                        $128,420
+                      </div>
+                      <svg width="80" height="24" viewBox="0 0 80 24" class="overflow-visible shrink-0 opacity-80">
+                        <polyline
+                          fill="none"
+                          stroke="#00875a"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          points="0,20 16,16 32,18 48,10 64,8 80,4"
+                        />
+                      </svg>
+                    </div>
+                    <div class="mt-2 text-[11px] text-zinc-500">vs. $108,450 previous period</div>
+                  </div>
+
+                  <div class="surface-card p-5 relative overflow-hidden">
+                    <div class="flex items-center justify-between mb-3">
+                      <span class="text-xs font-medium text-zinc-400">Active API Keys</span>
+                      <span class="inline-flex items-center gap-1 text-[11px] font-medium px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+                        <span>●</span>
+                        <span>Live</span>
+                      </span>
+                    </div>
+                    <div class="text-2xl sm:text-3xl font-semibold tracking-tight text-white tabular-nums">
+                      4,821
+                    </div>
+                    <div class="mt-2 text-[11px] text-zinc-500">Sub-25ns monomorphic lookup</div>
+                  </div>
+                </div>
+
+                {/* Stripe Live Table Component */}
+                <div class="surface-card overflow-hidden">
+                  <div class="p-4 px-5 border-b border-white/[0.06] flex items-center justify-between">
+                    <div class="flex items-center gap-2.5">
+                      <div class="w-2 h-2 rounded-full bg-emerald-400" />
+                      <span class="text-xs font-semibold text-white">Recent Transactions</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                      <span class="text-[10px] font-medium px-2 py-0.5 rounded-md bg-white/[0.04] text-zinc-400 border border-white/[0.06]">
+                        Table Component
+                      </span>
+                    </div>
+                  </div>
+
+                  <table class="w-full text-left text-xs text-zinc-300">
+                    <thead class="bg-white/[0.02] border-b border-white/[0.06] text-[11px] text-zinc-400 font-medium">
+                      <tr>
+                        <th class="py-3 px-5">Customer</th>
+                        <th class="py-3 px-5">Method</th>
+                        <th class="py-3 px-5">Status</th>
+                        <th class="py-3 px-5 text-right">Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-white/[0.04]">
+                      <tr class="hover:bg-white/[0.02] transition-colors">
+                        <td class="py-3.5 px-5 font-medium text-white">Acme Systems LLC</td>
+                        <td class="py-3.5 px-5 text-zinc-400 font-mono text-[11px]">•••• 4242</td>
+                        <td class="py-3.5 px-5">
+                          <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                            <span class="w-1 h-1 rounded-full bg-emerald-400" />
+                            Succeeded
+                          </span>
+                        </td>
+                        <td class="py-3.5 px-5 text-right font-medium text-white tabular-nums">$149.00</td>
+                      </tr>
+                      <tr class="hover:bg-white/[0.02] transition-colors">
+                        <td class="py-3.5 px-5 font-medium text-white">Nordic Dev Studio</td>
+                        <td class="py-3.5 px-5 text-zinc-400 font-mono text-[11px]">•••• 8821</td>
+                        <td class="py-3.5 px-5">
+                          <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                            <span class="w-1 h-1 rounded-full bg-emerald-400" />
+                            Succeeded
+                          </span>
+                        </td>
+                        <td class="py-3.5 px-5 text-right font-medium text-white tabular-nums">$289.00</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              {/* Right Column: Stripe Interactive Form Card & CLI Installer (5 cols) */}
+              <div class="lg:col-span-5 space-y-5">
+                <div class="surface-card p-6 relative overflow-hidden">
+                  <div class="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-[#533afd] via-[#7a5af8] to-[#00d4b2]" />
+
+                  <div class="flex items-center justify-between pb-4 border-b border-white/[0.06] mb-5">
+                    <div>
+                      <h4 class="text-sm font-semibold text-white">Checkout Component</h4>
+                      <p class="text-xs text-zinc-500 mt-0.5">Stripe Voltage Accent &amp; Micro-Bevels</p>
+                    </div>
+                    <span class="px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-[10px] font-medium">
+                      #533afd
+                    </span>
+                  </div>
+
+                  <div class="space-y-3.5">
+                    <div>
+                      <label class="block text-xs font-medium text-zinc-300 mb-1">
+                        Cardholder Name
+                      </label>
+                      <input
+                        type="text"
+                        defaultValue="Sarah Connor"
+                        class="w-full h-9 rounded bg-[#08090a] border border-white/[0.08] text-white text-xs px-3 focus:outline-none focus:border-[#533afd] focus:ring-2 focus:ring-[#533afd]/20 transition-all"
+                        readOnly
+                      />
+                    </div>
+
+                    <div>
+                      <label class="block text-xs font-medium text-zinc-300 mb-1">
+                        Payment Method
+                      </label>
+                      <div class="flex items-center justify-between p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.06] text-xs">
+                        <div class="flex items-center gap-2">
+                          <span class="px-1.5 py-0.5 rounded bg-white text-zinc-950 font-bold text-[10px]">VISA</span>
+                          <span class="text-zinc-300 font-mono text-[11px]">•••• 4242</span>
+                        </div>
+                        <span class="text-zinc-500 text-[11px]">12/28</span>
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      class="w-full py-2.5 rounded bg-[#533afd] text-white font-medium text-xs hover:bg-[#4326f5] transition-all shadow-[0_1px_2px_rgba(50,50,93,0.2),inset_0_1px_0_rgba(255,255,255,0.25)] flex items-center justify-center gap-2 mt-4"
+                    >
+                      <span>Confirm &amp; Pay $149.00</span>
+                      <span>→</span>
+                    </button>
+                  </div>
+                </div>
+
+                {/* CLI Command Box */}
+                <div class="surface-card p-4">
+                  <div class="flex items-center justify-between text-xs text-zinc-400 mb-2">
+                    <span class="font-medium text-zinc-300">Shadcn-Style Component Scaffolder</span>
+                    <span class="text-[10px] text-zinc-500 font-mono">frootui CLI</span>
+                  </div>
+
+                  <div
+                    class="command-bar cursor-pointer group"
+                    {...{ onclick: "copyInstallCmd('npx frootui add --all')" }}
+                    title="Click to copy FrootUI command"
+                  >
+                    <span class="text-[#533afd] font-mono text-xs select-none">$</span>
+                    <code class="text-xs font-mono text-zinc-300 group-hover:text-white transition-colors truncate">
+                      npx frootui add --all
+                    </code>
+                    <span class="text-[10px] font-medium px-2 py-0.5 rounded bg-white/[0.06] text-zinc-300 ml-auto border border-white/[0.08]">
+                      Copy
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
         <section class="py-20 border-b border-white/[0.08]" id="benchmarks">
           <div class="max-w-6xl mx-auto px-6">
             <div class="mb-12">

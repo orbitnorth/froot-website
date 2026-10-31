@@ -22,6 +22,7 @@ export const UNIFIED_DOCS_NAV: DocSection[] = [
   {
     title: 'FrootKit (Fullstack & Web UI)',
     items: [
+      { id: 'frootui', title: 'FrootUI (Stripe Design System)', badge: 'Shadcn UI', summary: 'Stripe design tokens and shadcn-style component CLI' },
       { id: 'app-router', title: 'App Router Conventions', badge: 'Routing', summary: 'File-based routing with layout.tsx and page.tsx' },
       { id: 'nested-layouts', title: 'Hierarchical Nested Layouts', badge: 'Layouts', summary: 'Root document shells and cascading sections' },
       { id: 'routing-and-hydration', title: 'Routing Contract & Hydration', badge: 'Contract', summary: 'Specifications for SSR, serialization, and Preact hydration' },
