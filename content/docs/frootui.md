@@ -96,3 +96,4 @@ export default function CheckoutPage() {
 | `Avatar` | `sm`, `md`, `lg` with `online`, `offline`, `busy` status dots | User avatar with fallback initials. |
 | `Separator` | `horizontal`, `vertical`, with optional text label | Hairline divider. |
 | `StripeMesh` | `mesh`, `voltage`, `sunset`, `aurora` gradients | Slanted ribbon background container (`skewY(-6deg)`). |
+
