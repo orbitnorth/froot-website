@@ -87,7 +87,7 @@ export default function UnifiedLandingPage() {
       </div>
 
       {/* Main Navigation Header */}
-      <header class="sticky top-0 z-40 border-b border-[#e6ebf1] bg-white/95 backdrop-blur-md">
+      <header id="main-nav" class="sticky top-0 z-40 border-b border-[#e6ebf1] bg-white/95 backdrop-blur-md">
         <div class="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
           <div class="flex items-center gap-8">
             <a href="/" class="flex items-center gap-2.5">
@@ -147,7 +147,7 @@ export default function UnifiedLandingPage() {
               The Next.js alternative built for speed, not slop.
             </h1>
             <p class="mt-6 max-w-xl text-[18px] font-light leading-7 text-white/90">
-              Sub-millisecond Preact SSR, monomorphic V8 backend at 124,000 req/sec, native Tailwind CSS v4, and the complete Stripe design system. Zero heavy client bundles. Zero stuck port processes.
+              Sub-millisecond Preact SSR, monomorphic V8 backend at 124,000+ req/sec, native Tailwind CSS v4, and the complete Stripe design system. Zero heavy client bundles. Zero stuck port processes.
             </p>
 
             <div class="mt-8 flex flex-wrap items-center gap-4">

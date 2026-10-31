@@ -43,3 +43,4 @@ export default function DocNotFound({ currentPath }: DocNotFoundProps) {
     </div>
   );
 }
+
