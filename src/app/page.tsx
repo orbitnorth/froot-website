@@ -1,762 +1,533 @@
 /** @jsx h */
 /** @jsxFrag Fragment */
 import { h, Fragment } from 'preact';
-import { highlightCode } from 'frootkit';
 
-const CODE_SNIPPETS: Record<string, string> = {
-  frootkit: `// src/app/layout.tsx — Zero-hydration Preact SSR
-import type { ComponentChildren } from 'preact';
-
-export default function RootLayout({ children }: { children: ComponentChildren }) {
-  return (
-    <html lang="en" class="dark">
-      <head>
-        <meta charSet="UTF-8" />
-        <title>FrootKit Production Application</title>
-        <link rel="stylesheet" href="/styles.css" />
-      </head>
-      <body class="bg-[#08090a] text-zinc-100 antialiased font-sans">
-        {children}
-      </body>
-    </html>
-  );
-}`,
-
-  backend: `// server.ts — Monomorphic V8 Engine with < 25ns dispatch
-import { Froot } from 'frootjs';
-
-const app = new Froot();
-
-// Tier 1: Static Route (< 25ns Monomorphic Lookup)
-app.get('/health', (c) => c.text('OK'));
-
-// Tier 2: Dynamic Route with zero-alloc parameter parsing
-app.get('/api/users/:id', (c) => {
-  return c.json({ id: c.param('id'), active: true });
-});
-
-// Real-time Event Streaming
-app.get('/api/events', (c) => {
-  return c.streamSSE(async (stream) => {
-    await stream.writeSSE({ data: 'Connected to Froot runtime' });
-  });
-});
-
-app.listen(3000);`,
-
-  docs: `// src/app/docs/[slug]/page.tsx — Static documentation loader
-import { getDoc } from 'frootkit';
-
-export async function generateStaticParams() {
-  return [{ slug: 'overview' }, { slug: 'quickstart' }];
-}
-
-export default async function DocPage({ params }: { params: { slug: string } }) {
-  const { slug } = await params;
-  const { frontmatter, html } = await getDoc(slug);
-
-  return (
-    <article class="prose max-w-3xl mx-auto py-12">
-      <h1 class="text-3xl font-semibold text-white mb-6">{frontmatter.title}</h1>
-      <div dangerouslySetInnerHTML={{ __html: html }} />
-    </article>
-  );
-}`,
-
-  tailwind: `/* src/styles.css — Zero-config Tailwind CSS v4 */
-@import "tailwindcss";
-
-@theme {
-  --color-brand-primary: #6366f1;
-  --font-mono: 'JetBrains Mono', monospace;
-}
-
-@layer components {
-  .surface-card {
-    background-color: #0f1117;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-  }
-}`,
+export const metadata = {
+  title: 'Froot & FrootKit — High-Performance Web & Next.js Alternative',
+  description: 'The unified high-performance TypeScript stack. Monomorphic V8 backend (124k req/sec), FrootKit zero-overhead Next.js alternative (3KB Preact SSR, Tailwind v4 native), and FrootUI Stripe design system.',
 };
 
 export default function UnifiedLandingPage() {
+  const features = [
+    {
+      title: 'Sub-Millisecond Preact SSR',
+      desc: 'Blazing fast TTFB under 0.42ms with pure Web VNode streaming. No React 19 hydration penalties or massive runtime client bundles.',
+      icon: (
+        <svg class="h-5 w-5 text-[#635bff]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+        </svg>
+      ),
+      badge: '0.42ms TTFB',
+    },
+    {
+      title: 'Next.js Parity App Router',
+      desc: 'First-class support for nested layouts, dynamic path segments, error boundaries, 404 views, route-level code splitting, and web standard Request/Response API routes.',
+      icon: (
+        <svg class="h-5 w-5 text-[#635bff]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7" />
+          <rect x="14" y="3" width="7" height="7" />
+          <rect x="14" y="14" width="7" height="7" />
+          <rect x="3" y="14" width="7" height="7" />
+        </svg>
+      ),
+      badge: 'App Router',
+    },
+    {
+      title: 'Monomorphic V8 Engine',
+      desc: 'Powered by Froot core with monomorphic inline cache dispatch executing static route lookups in under 22 nanoseconds at 124,000 req/sec.',
+      icon: (
+        <svg class="h-5 w-5 text-[#635bff]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10" />
+          <polyline points="12 6 12 12 16 14" />
+        </svg>
+      ),
+      badge: '124k req/s',
+    },
+    {
+      title: 'Native Tailwind CSS v4',
+      desc: 'Zero-config standalone compilation with Stripe design tokens pre-configured. Automatic watching in development and minified build pipeline.',
+      icon: (
+        <svg class="h-5 w-5 text-[#635bff]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+        </svg>
+      ),
+      badge: 'Tailwind v4',
+    },
+    {
+      title: 'FrootUI Design System',
+      desc: 'A complete, modular Stripe-inspired UI component library with shadcn-style CLI scaffolding. Blurple actions, layered shadows, and light surfaces.',
+      icon: (
+        <svg class="h-5 w-5 text-[#635bff]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3" />
+          <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
+        </svg>
+      ),
+      badge: 'FrootUI',
+    },
+    {
+      title: 'Bulletproof Process Management',
+      desc: 'Orphan watchdog heartbeat, immediate socket termination, and netstat port reconciliation ensure zero lingering background processes or stuck ports.',
+      icon: (
+        <svg class="h-5 w-5 text-[#635bff]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        </svg>
+      ),
+      badge: 'Watchdog',
+    },
+  ];
+
   return (
-    <div class="min-h-screen bg-[#08090a] text-zinc-100 flex flex-col justify-between selection:bg-indigo-500/20 selection:text-indigo-300">
-      {/* Navigation Header */}
-      <header class="sticky top-0 z-50 bg-[#08090a]/80 backdrop-blur-md border-b border-white/[0.08]" id="main-nav">
-        <div class="max-w-6xl mx-auto px-6 h-14 flex items-center justify-between">
-          <a href="/" class="flex items-center gap-2.5 group">
-            <div class="w-7 h-7 rounded-md bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center text-indigo-400 group-hover:border-indigo-400/50 transition-colors shrink-0">
-              <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-              </svg>
-            </div>
-            <div class="flex items-center gap-2">
-              <span class="text-sm font-semibold text-white tracking-tight">
-                Froot<span class="text-indigo-400">Kit</span>
-              </span>
-              <span class="text-[10px] font-mono text-zinc-400 border border-white/[0.08] px-1.5 py-0.5 rounded bg-white/[0.03]">
-                v1.3.5
-              </span>
-            </div>
-          </a>
+    <div class="min-h-screen bg-white text-[#425466] flex flex-col justify-between selection:bg-[#635bff]/20 selection:text-[#635bff]">
+      {/* Top Notification Announcement */}
+      <div class="bg-[#0a2540] py-2 text-center text-[13px] text-white font-medium">
+        <span>FrootKit v1.3.6 &amp; FrootUI v1.0.4 are officially published to NPM · </span>
+        <a href="/docs" class="text-[#00d4ff] hover:underline font-normal ml-1">
+          Explore documentation →
+        </a>
+      </div>
 
-          <nav class="hidden md:flex items-center gap-6 text-xs font-medium text-zinc-400">
-            <a href="#ecosystem" class="hover:text-white transition-colors">Ecosystem</a>
-            <a href="#frootui" class="text-indigo-400 hover:text-indigo-300 font-semibold transition-colors flex items-center gap-1">
-              <span>FrootUI</span>
-              <span class="text-[9px] px-1 py-0.2 rounded bg-indigo-500/10 border border-indigo-500/20 uppercase tracking-wider">Stripe</span>
+      {/* Main Navigation Header */}
+      <header class="sticky top-0 z-40 border-b border-[#e6ebf1] bg-white/95 backdrop-blur-md">
+        <div class="mx-auto max-w-6xl px-6 h-16 flex items-center justify-between">
+          <div class="flex items-center gap-8">
+            <a href="/" class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-[#635bff] flex items-center justify-center text-white shadow-sm font-bold text-[16px]">
+                F
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-[19px] font-semibold tracking-tight text-[#0a2540]">
+                  froot<span class="text-[#635bff]">kit</span>
+                </span>
+                <span class="text-[11px] font-mono text-[#0a2540] bg-[#f6f9fc] border border-[#e6ebf1] px-1.5 py-0.5 rounded-full font-medium">
+                  v1.3.6
+                </span>
+              </div>
             </a>
-            <a href="#benchmarks" class="hover:text-white transition-colors">Benchmarks</a>
-            <a href="#code" class="hover:text-white transition-colors">Architecture</a>
-            <a href="/docs" class="text-zinc-200 hover:text-white transition-colors">
-              Documentation
-            </a>
-          </nav>
 
-          <div class="flex items-center gap-2.5">
+            <nav class="hidden md:flex items-center gap-6 text-[14px] font-medium text-[#425466]">
+              <a href="#features" class="hover:text-[#0a2540] transition-colors">Features</a>
+              <a href="#frootui" class="text-[#635bff] hover:text-[#5249e6] transition-colors flex items-center gap-1.5">
+                <span>FrootUI</span>
+                <span class="text-[10px] px-1.5 py-0.5 rounded-full bg-[#635bff]/10 text-[#635bff] font-semibold">Stripe</span>
+              </a>
+              <a href="#benchmarks" class="hover:text-[#0a2540] transition-colors">Benchmarks</a>
+              <a href="#code" class="hover:text-[#0a2540] transition-colors">Architecture</a>
+              <a href="/docs" class="hover:text-[#0a2540] transition-colors">Documentation</a>
+            </nav>
+          </div>
+
+          <div class="flex items-center gap-3">
             <a
               href="https://github.com/orbitnorth/froot"
               target="_blank"
               rel="noreferrer"
-              class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-white/[0.04] border border-white/[0.08] hover:border-white/[0.16] text-zinc-300 hover:text-white transition-colors"
+              class="btn-secondary text-[13px] px-3.5 py-1.5 rounded-md hidden sm:inline-flex"
             >
-              <svg style="width: 13px; height: 13px;" class="fill-current" viewBox="0 0 24 24">
-                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-              </svg>
-              <span>GitHub</span>
+              GitHub
             </a>
-
-            <a href="/docs" class="btn-primary">
-              <span>Get Started</span>
-              <span class="text-zinc-500">→</span>
+            <a
+              href="/docs"
+              class="btn-primary text-[13px] px-4 py-1.5 rounded-full"
+            >
+              Get Started
             </a>
           </div>
         </div>
       </header>
 
-      <main>
-        {/* Asymmetric Hero Section */}
-        <section class="border-b border-white/[0.08] pt-16 pb-20 md:pt-24 md:pb-28 bg-grid-mesh">
-          <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            {/* Left Column: Value Proposition & Commands (7 cols) */}
-            <div class="lg:col-span-7">
-              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-medium mb-6">
-                <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 animate-pulse" />
-                <span>Monomorphic V8 Engine • Next.js App Router Architecture</span>
-              </div>
-
-              <h1 class="text-4xl sm:text-5xl lg:text-6xl font-semibold text-white tracking-[-0.03em] leading-[1.1] mb-6">
-                Fast by Architecture. The TypeScript Fullstack Stack.
-              </h1>
-
-              <p class="text-base sm:text-lg text-zinc-400 leading-relaxed mb-8 max-w-2xl">
-                Achieve <strong class="text-zinc-100 font-medium">124,000+ req/sec</strong> on the backend with sub-25ns monomorphic routing, paired with a <strong class="text-zinc-100 font-medium">3 KB Preact SSR</strong> web runtime featuring Next.js App Router conventions and zero hydration overhead.
-              </p>
-
-              <div class="flex flex-wrap items-center gap-3.5 mb-8">
-                <a href="/docs" class="btn-primary">
-                  <span>Read Documentation</span>
-                  <span class="text-zinc-500">→</span>
-                </a>
-                <a
-                  href="#benchmarks"
-                  class="btn-secondary"
-                >
-                  View Benchmarks
-                </a>
-              </div>
-
-              {/* Scaffolding CLI Command Bars */}
-              <div class="flex flex-col sm:flex-row gap-3">
-                <div
-                  class="command-bar cursor-pointer group flex-1"
-                  {...{ onclick: "copyInstallCmd('npm create frootkit@latest')" }}
-                  title="Click to copy Web command"
-                >
-                  <span class="text-indigo-400 font-mono text-xs select-none">$</span>
-                  <code class="text-xs font-mono text-zinc-300 group-hover:text-white transition-colors truncate">
-                    npm create frootkit@latest
-                  </code>
-                  <span class="text-[10px] font-medium px-2 py-0.5 rounded-full bg-white/[0.04] text-zinc-400 ml-auto border border-white/[0.06]">
-                    Web (Next.js Alt)
-                  </span>
-                </div>
-
-                <div
-                  class="command-bar cursor-pointer group flex-1"
-                  {...{ onclick: "copyInstallCmd('npm create frootjs@latest')" }}
-                  title="Click to copy Backend command"
-                >
-                  <span class="text-indigo-400 font-mono text-xs select-none">$</span>
-                  <code class="text-xs font-mono text-zinc-300 group-hover:text-white transition-colors truncate">
-                    npm create frootjs@latest
-                  </code>
-                  <span class="text-[10px] font-medium px-2 py-0.5 rounded-full bg-white/[0.04] text-zinc-400 ml-auto border border-white/[0.06]">
-                    API (Microservice)
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Column: Live Architectural Inspector Chrome (5 cols) */}
-            <div class="lg:col-span-5">
-              <div class="code-window shadow-2xl relative overflow-hidden">
-                <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-indigo-500/40 to-transparent" />
-                <div class="code-window-header flex items-center justify-between">
-                  <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-white/[0.12] inline-block" />
-                    <span class="w-2.5 h-2.5 rounded-full bg-white/[0.12] inline-block" />
-                    <span class="w-2.5 h-2.5 rounded-full bg-white/[0.12] inline-block" />
-                    <span class="ml-2 text-xs font-mono text-zinc-400">engine-telemetry.ts</span>
-                  </div>
-                  <span class="text-[10px] font-medium text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded-full border border-indigo-500/20">
-                    V8 JIT Monomorphic
-                  </span>
-                </div>
-
-                <div class="p-5 font-mono text-xs space-y-4 text-zinc-300">
-                  <div class="pb-3 border-b border-white/[0.06]">
-                    <div class="text-[10px] text-zinc-500 uppercase tracking-wider mb-1 font-semibold">Router Pipeline</div>
-                    <div class="text-zinc-100 font-medium">Tri-Tier Monomorphic Dispatch</div>
-                    <div class="text-zinc-400 text-[11px] mt-1 font-sans">→ O(1) Hash Map • Compressed Radix • RegExp</div>
-                  </div>
-
-                  <div class="grid grid-cols-2 gap-3 pb-3 border-b border-white/[0.06]">
-                    <div>
-                      <div class="text-[10px] text-zinc-500 font-sans">Lookup Latency</div>
-                      <div class="text-white font-medium text-sm mt-0.5 tabular-nums">&lt; 24.8 ns</div>
-                    </div>
-                    <div>
-                      <div class="text-[10px] text-zinc-500 font-sans">Throughput</div>
-                      <div class="text-zinc-100 font-medium text-sm mt-0.5 tabular-nums">124,820 RPS</div>
-                    </div>
-                  </div>
-
-                  <div class="grid grid-cols-2 gap-3 pb-3 border-b border-white/[0.06]">
-                    <div>
-                      <div class="text-[10px] text-zinc-500 font-sans">Web SSR Size</div>
-                      <div class="text-white font-medium text-sm mt-0.5 tabular-nums">3.1 KB (Preact)</div>
-                    </div>
-                    <div>
-                      <div class="text-[10px] text-zinc-500 font-sans">Client Hydration</div>
-                      <div class="text-emerald-400 font-medium text-sm mt-0.5 tabular-nums">0 KB Default</div>
-                    </div>
-                  </div>
-
-                  <div class="pt-1 text-[11px] text-zinc-500 flex items-center justify-between font-sans">
-                    <span>Allocations per Request:</span>
-                    <span class="text-zinc-200 font-medium font-mono">0 bytes heap</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Dual Framework Architecture Section */}
-        <section class="py-20 border-b border-white/[0.08]" id="ecosystem">
-          <div class="max-w-6xl mx-auto px-6">
-            <div class="mb-12">
-              <span class="text-xs font-medium text-indigo-400 tracking-wide uppercase">Architectural Design</span>
-              <h2 class="text-3xl sm:text-4xl font-semibold text-white tracking-[-0.025em] mt-2 mb-3">
-                Two Dedicated Engines. One Cohesive Ecosystem.
-              </h2>
-              <p class="text-zinc-400 text-base max-w-2xl leading-relaxed">
-                Whether deploying cloud microservices or fullstack web applications, the Froot ecosystem eliminates framework overhead at every layer.
-              </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Card 1: FrootKit */}
-              <div class="surface-card p-7 sm:p-8 flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center justify-between mb-4">
-                    <span class="text-xs font-medium px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
-                      Fullstack Web Framework
-                    </span>
-                    <span class="text-xs font-mono text-zinc-500">frootkit CLI</span>
-                  </div>
-
-                  <h3 class="text-xl font-semibold text-white mb-2 tracking-tight">FrootKit</h3>
-                  <p class="text-zinc-400 text-xs sm:text-sm leading-relaxed mb-6">
-                    Next.js App Router conventions with 3KB Preact SSR, native Tailwind CSS v4, dynamic API routes, and instantaneous static site export.
-                  </p>
-
-                  <ul class="space-y-3 text-xs text-zinc-300 mb-8">
-                    <li class="flex items-start gap-2.5">
-                      <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-1.5 shrink-0" />
-                      <span>Next.js-style file-based routing (<code class="text-zinc-200">layout.tsx</code>, <code class="text-zinc-200">page.tsx</code>)</span>
-                    </li>
-                    <li class="flex items-start gap-2.5">
-                      <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-1.5 shrink-0" />
-                      <span>Dynamic Route Handlers in <code class="text-zinc-200">src/app/api/**/route.ts</code></span>
-                    </li>
-                    <li class="flex items-start gap-2.5">
-                      <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-1.5 shrink-0" />
-                      <span>Native Tailwind CSS v4 with zero configuration files</span>
-                    </li>
-                    <li class="flex items-start gap-2.5">
-                      <span class="w-1.5 h-1.5 rounded-full bg-indigo-400 mt-1.5 shrink-0" />
-                      <span>Automatic static export via <code class="text-zinc-200">frootkit build</code> in &lt; 900ms</span>
-                    </li>
-                  </ul>
-                </div>
-
-                <div class="pt-5 border-t border-white/[0.06] flex items-center justify-between">
-                  <span class="text-xs text-zinc-500">Starter, Blog, Store, Auth</span>
-                  <a href="/docs/frootkit" class="text-xs font-medium text-zinc-200 hover:text-white transition-colors flex items-center gap-1 group">
-                    <span>FrootKit Guide</span>
-                    <span class="text-zinc-500 group-hover:translate-x-0.5 transition-transform">→</span>
-                  </a>
-                </div>
-              </div>
-
-              {/* Card 2: Frootjs Core */}
-              <div class="surface-card p-7 sm:p-8 flex flex-col justify-between">
-                <div>
-                  <div class="flex items-center justify-between mb-4">
-                    <span class="text-xs font-medium px-2.5 py-0.5 rounded-full bg-white/[0.04] text-zinc-300 border border-white/[0.08]">
-                      Backend HTTP Micro-Framework
-                    </span>
-                    <span class="text-xs font-mono text-zinc-500">124k+ req/sec</span>
-                  </div>
-
-                  <h3 class="text-xl font-semibold text-white mb-2 tracking-tight">Frootjs</h3>
-                  <p class="text-zinc-400 text-xs sm:text-sm leading-relaxed mb-6">
-                    Monomorphic V8 inline cache architectures delivering sub-25ns routing lookups with zero heap allocation per request.
-                  </p>
-
-                  <ul class="space-y-3 text-xs text-zinc-300 mb-8">
-                    <li class="flex items-start gap-2.5">
-                      <span class="w-1.5 h-1.5 rounded-full bg-zinc-400 mt-1.5 shrink-0" />
-                      <span>Tri-Tier routing engine with O(1) static route table</span>
-                    </li>
-                    <li class="flex items-start gap-2.5">
-                      <span class="w-1.5 h-1.5 rounded-full bg-zinc-400 mt-1.5 shrink-0" />
-                      <span>Zero V8 hidden class transitions during execution</span>
-                    </li>
-                    <li class="flex items-start gap-2.5">
-                      <span class="w-1.5 h-1.5 rounded-full bg-zinc-400 mt-1.5 shrink-0" />
-                      <span>Built-in JWT, AES-GCM, WebSockets &amp; Server-Sent Events</span>
-                    </li>
-                    <li class="flex items-start gap-2.5">
-                      <span class="w-1.5 h-1.5 rounded-full bg-zinc-400 mt-1.5 shrink-0" />
-                      <span>Standard Fetch API compatibility (Request / Response)</span>
-                    </li>
-                  </ul>
-                </div>
-
-                <div class="pt-5 border-t border-white/[0.06] flex items-center justify-between">
-                  <span class="text-xs text-zinc-500 font-mono text-[11px]">npm create frootjs@latest</span>
-                  <a href="/docs/quickstart" class="text-xs font-medium text-zinc-200 hover:text-white transition-colors flex items-center gap-1 group">
-                    <span>Backend Guide</span>
-                    <span class="text-zinc-500 group-hover:translate-x-0.5 transition-transform">→</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* FrootUI (Stripe Design System & shadcn CLI) Showcase Section */}
-        <section class="py-20 border-b border-white/[0.08] relative overflow-hidden" id="frootui">
-          {/* Subtle Stripe ambient mesh in background */}
-          <div class="absolute -right-32 top-10 w-96 h-96 rounded-full bg-[#533afd]/10 blur-3xl pointer-events-none" />
-
-          <div class="max-w-6xl mx-auto px-6">
-            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12">
-              <div>
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#533afd]/10 border border-[#533afd]/25 text-indigo-400 text-xs font-medium mb-3">
-                  <span class="w-1.5 h-1.5 rounded-full bg-[#533afd]" />
-                  <span>Stripe Design System • shadcn Component Architecture</span>
-                </div>
-                <h2 class="text-3xl sm:text-4xl font-semibold text-white tracking-[-0.025em] mb-2">
-                  FrootUI: Modular Components with Zero Lock-In.
-                </h2>
-                <p class="text-zinc-400 text-base max-w-2xl leading-relaxed">
-                  Crafted around Stripe&apos;s voltage palette (`#533afd`), multi-layer blue shadows, and tabular numbers. Copy component source directly into your project with the CLI or import as an NPM package.
-                </p>
-              </div>
-
-              <div class="flex flex-wrap items-center gap-3">
-                <a
-                  href="/docs/frootui"
-                  class="btn-primary"
-                >
-                  <span>Explore FrootUI Docs</span>
-                  <span class="text-zinc-500">→</span>
-                </a>
-              </div>
-            </div>
-
-            {/* Interactive Stripe UI Mockup Grid */}
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-              {/* Left Column: Stripe Financial Card Preview (7 cols) */}
-              <div class="lg:col-span-7 space-y-5">
-                {/* Stripe Metric KPI Row */}
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div class="surface-card p-5 relative overflow-hidden">
-                    <div class="flex items-center justify-between mb-3">
-                      <span class="text-xs font-medium text-zinc-400">Gross Settlement Volume</span>
-                      <span class="inline-flex items-center gap-1 text-[11px] font-medium px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                        <span>↑</span>
-                        <span class="tabular-nums">+18.4%</span>
-                      </span>
-                    </div>
-                    <div class="flex items-baseline justify-between gap-4">
-                      <div class="text-2xl sm:text-3xl font-semibold tracking-tight text-white tabular-nums">
-                        $128,420
-                      </div>
-                      <svg width="80" height="24" viewBox="0 0 80 24" class="overflow-visible shrink-0 opacity-80">
-                        <polyline
-                          fill="none"
-                          stroke="#00875a"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          points="0,20 16,16 32,18 48,10 64,8 80,4"
-                        />
-                      </svg>
-                    </div>
-                    <div class="mt-2 text-[11px] text-zinc-500">vs. $108,450 previous period</div>
-                  </div>
-
-                  <div class="surface-card p-5 relative overflow-hidden">
-                    <div class="flex items-center justify-between mb-3">
-                      <span class="text-xs font-medium text-zinc-400">Active API Keys</span>
-                      <span class="inline-flex items-center gap-1 text-[11px] font-medium px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
-                        <span>●</span>
-                        <span>Live</span>
-                      </span>
-                    </div>
-                    <div class="text-2xl sm:text-3xl font-semibold tracking-tight text-white tabular-nums">
-                      4,821
-                    </div>
-                    <div class="mt-2 text-[11px] text-zinc-500">Sub-25ns monomorphic lookup</div>
-                  </div>
-                </div>
-
-                {/* Stripe Live Table Component */}
-                <div class="surface-card overflow-hidden">
-                  <div class="p-4 px-5 border-b border-white/[0.06] flex items-center justify-between">
-                    <div class="flex items-center gap-2.5">
-                      <div class="w-2 h-2 rounded-full bg-emerald-400" />
-                      <span class="text-xs font-semibold text-white">Recent Transactions</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                      <span class="text-[10px] font-medium px-2 py-0.5 rounded-md bg-white/[0.04] text-zinc-400 border border-white/[0.06]">
-                        Table Component
-                      </span>
-                    </div>
-                  </div>
-
-                  <table class="w-full text-left text-xs text-zinc-300">
-                    <thead class="bg-white/[0.02] border-b border-white/[0.06] text-[11px] text-zinc-400 font-medium">
-                      <tr>
-                        <th class="py-3 px-5">Customer</th>
-                        <th class="py-3 px-5">Method</th>
-                        <th class="py-3 px-5">Status</th>
-                        <th class="py-3 px-5 text-right">Amount</th>
-                      </tr>
-                    </thead>
-                    <tbody class="divide-y divide-white/[0.04]">
-                      <tr class="hover:bg-white/[0.02] transition-colors">
-                        <td class="py-3.5 px-5 font-medium text-white">Acme Systems LLC</td>
-                        <td class="py-3.5 px-5 text-zinc-400 font-mono text-[11px]">•••• 4242</td>
-                        <td class="py-3.5 px-5">
-                          <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                            <span class="w-1 h-1 rounded-full bg-emerald-400" />
-                            Succeeded
-                          </span>
-                        </td>
-                        <td class="py-3.5 px-5 text-right font-medium text-white tabular-nums">$149.00</td>
-                      </tr>
-                      <tr class="hover:bg-white/[0.02] transition-colors">
-                        <td class="py-3.5 px-5 font-medium text-white">Nordic Dev Studio</td>
-                        <td class="py-3.5 px-5 text-zinc-400 font-mono text-[11px]">•••• 8821</td>
-                        <td class="py-3.5 px-5">
-                          <span class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                            <span class="w-1 h-1 rounded-full bg-emerald-400" />
-                            Succeeded
-                          </span>
-                        </td>
-                        <td class="py-3.5 px-5 text-right font-medium text-white tabular-nums">$289.00</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              {/* Right Column: Stripe Interactive Form Card & CLI Installer (5 cols) */}
-              <div class="lg:col-span-5 space-y-5">
-                <div class="surface-card p-6 relative overflow-hidden">
-                  <div class="absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-[#533afd] via-[#7a5af8] to-[#00d4b2]" />
-
-                  <div class="flex items-center justify-between pb-4 border-b border-white/[0.06] mb-5">
-                    <div>
-                      <h4 class="text-sm font-semibold text-white">Checkout Component</h4>
-                      <p class="text-xs text-zinc-500 mt-0.5">Stripe Voltage Accent &amp; Micro-Bevels</p>
-                    </div>
-                    <span class="px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-[10px] font-medium">
-                      #533afd
-                    </span>
-                  </div>
-
-                  <div class="space-y-3.5">
-                    <div>
-                      <label class="block text-xs font-medium text-zinc-300 mb-1">
-                        Cardholder Name
-                      </label>
-                      <input
-                        type="text"
-                        defaultValue="Sarah Connor"
-                        class="w-full h-9 rounded bg-[#08090a] border border-white/[0.08] text-white text-xs px-3 focus:outline-none focus:border-[#533afd] focus:ring-2 focus:ring-[#533afd]/20 transition-all"
-                        readOnly
-                      />
-                    </div>
-
-                    <div>
-                      <label class="block text-xs font-medium text-zinc-300 mb-1">
-                        Payment Method
-                      </label>
-                      <div class="flex items-center justify-between p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.06] text-xs">
-                        <div class="flex items-center gap-2">
-                          <span class="px-1.5 py-0.5 rounded bg-white text-zinc-950 font-bold text-[10px]">VISA</span>
-                          <span class="text-zinc-300 font-mono text-[11px]">•••• 4242</span>
-                        </div>
-                        <span class="text-zinc-500 text-[11px]">12/28</span>
-                      </div>
-                    </div>
-
-                    <button
-                      type="button"
-                      class="w-full py-2.5 rounded bg-[#533afd] text-white font-medium text-xs hover:bg-[#4326f5] transition-all shadow-[0_1px_2px_rgba(50,50,93,0.2),inset_0_1px_0_rgba(255,255,255,0.25)] flex items-center justify-center gap-2 mt-4"
-                    >
-                      <span>Confirm &amp; Pay $149.00</span>
-                      <span>→</span>
-                    </button>
-                  </div>
-                </div>
-
-                {/* CLI Command Box */}
-                <div class="surface-card p-4">
-                  <div class="flex items-center justify-between text-xs text-zinc-400 mb-2">
-                    <span class="font-medium text-zinc-300">Shadcn-Style Component Scaffolder</span>
-                    <span class="text-[10px] text-zinc-500 font-mono">frootui CLI</span>
-                  </div>
-
-                  <div
-                    class="command-bar cursor-pointer group"
-                    {...{ onclick: "copyInstallCmd('npx frootui add --all')" }}
-                    title="Click to copy FrootUI command"
-                  >
-                    <span class="text-[#533afd] font-mono text-xs select-none">$</span>
-                    <code class="text-xs font-mono text-zinc-300 group-hover:text-white transition-colors truncate">
-                      npx frootui add --all
-                    </code>
-                    <span class="text-[10px] font-medium px-2 py-0.5 rounded bg-white/[0.06] text-zinc-300 ml-auto border border-white/[0.08]">
-                      Copy
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section class="py-20 border-b border-white/[0.08]" id="benchmarks">
-          <div class="max-w-6xl mx-auto px-6">
-            <div class="mb-12">
-              <span class="text-xs font-medium text-indigo-400 tracking-wide uppercase">Empirical Verification</span>
-              <h2 class="text-3xl sm:text-4xl font-semibold text-white tracking-[-0.025em] mt-2 mb-3">
-                Performance Benchmarks
-              </h2>
-              <p class="text-zinc-400 text-base max-w-2xl leading-relaxed">
-                Measured on Node.js v22 on AMD EPYC 7763 hardware with 100 concurrent HTTP keep-alive connections.
-              </p>
-            </div>
-
-            <div class="overflow-x-auto surface-card">
-              <table class="w-full text-left border-collapse text-xs">
-                <thead>
-                  <tr class="border-b border-white/[0.06] bg-white/[0.02] text-zinc-400">
-                    <th class="py-3 px-5 font-medium">Engine / Metric</th>
-                    <th class="py-3 px-5 font-medium">Next.js 15 / Express</th>
-                    <th class="py-3 px-5 font-medium">Fastify / Hono</th>
-                    <th class="py-3 px-5 text-indigo-300 font-semibold bg-indigo-500/[0.05]">Froot / FrootKit</th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-white/[0.04]">
-                  <tr class="hover:bg-white/[0.02] transition-colors">
-                    <td class="py-3.5 px-5 font-medium text-white">HTTP Throughput</td>
-                    <td class="py-3.5 px-5 text-zinc-400 font-mono">15,400 req/s</td>
-                    <td class="py-3.5 px-5 text-zinc-400 font-mono">78,200 req/s</td>
-                    <td class="py-3.5 px-5 text-zinc-100 font-semibold font-mono bg-indigo-500/[0.05] tabular-nums">124,820 req/s</td>
-                  </tr>
-                  <tr class="hover:bg-white/[0.02] transition-colors">
-                    <td class="py-3.5 px-5 font-medium text-white">Route Lookup Latency</td>
-                    <td class="py-3.5 px-5 text-zinc-400 font-mono">240 ns</td>
-                    <td class="py-3.5 px-5 text-zinc-400 font-mono">85 ns</td>
-                    <td class="py-3.5 px-5 text-zinc-100 font-semibold font-mono bg-indigo-500/[0.05] tabular-nums">&lt; 25 ns (O(1))</td>
-                  </tr>
-                  <tr class="hover:bg-white/[0.02] transition-colors">
-                    <td class="py-3.5 px-5 font-medium text-white">Web SSR Runtime Size</td>
-                    <td class="py-3.5 px-5 text-zinc-400 font-mono">85 KB (React 19)</td>
-                    <td class="py-3.5 px-5 text-zinc-400 font-mono">N/A (API only)</td>
-                    <td class="py-3.5 px-5 text-zinc-100 font-semibold font-mono bg-indigo-500/[0.05] tabular-nums">3.1 KB (Preact)</td>
-                  </tr>
-                  <tr class="hover:bg-white/[0.02] transition-colors">
-                    <td class="py-3.5 px-5 font-medium text-white">Default Client JS</td>
-                    <td class="py-3.5 px-5 text-zinc-400 font-mono">86.4 KB (gzipped)</td>
-                    <td class="py-3.5 px-5 text-zinc-400 font-mono">N/A</td>
-                    <td class="py-3.5 px-5 text-emerald-400 font-semibold font-mono bg-indigo-500/[0.05] tabular-nums">0 KB (Zero JS)</td>
-                  </tr>
-                  <tr class="hover:bg-white/[0.02] transition-colors">
-                    <td class="py-3.5 px-5 font-medium text-white">Cold SSG Export Duration</td>
-                    <td class="py-3.5 px-5 text-zinc-400 font-mono">4,850 ms</td>
-                    <td class="py-3.5 px-5 text-zinc-400 font-mono">N/A</td>
-                    <td class="py-3.5 px-5 text-zinc-100 font-semibold font-mono bg-indigo-500/[0.05] tabular-nums">&lt; 900 ms</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-
-        {/* Architecture & Code Showcase Section */}
-        <section class="py-20 border-b border-white/[0.08]" id="code">
-          <div class="max-w-6xl mx-auto px-6">
-            <div class="mb-12">
-              <span class="text-xs font-medium text-indigo-400 tracking-wide uppercase">Developer Workflow</span>
-              <h2 class="text-3xl sm:text-4xl font-semibold text-white tracking-[-0.025em] mt-2 mb-3">
-                Simple, Ergonomic Primitives
-              </h2>
-              <p class="text-zinc-400 text-base max-w-2xl leading-relaxed">
-                Inspect how App Router layouts, backend route handlers, markdown pages, and native Tailwind v4 integrate seamlessly.
-              </p>
-            </div>
-
-            <div class="code-window">
-              <div class="code-window-header flex flex-col sm:flex-row gap-3 sm:items-center justify-between">
-                <div class="flex items-center gap-2">
-                  <span class="w-2.5 h-2.5 rounded-full bg-white/[0.12] inline-block" />
-                  <span class="w-2.5 h-2.5 rounded-full bg-white/[0.12] inline-block" />
-                  <span class="w-2.5 h-2.5 rounded-full bg-white/[0.12] inline-block" />
-                  <span class="ml-2 text-xs font-mono text-zinc-400">workspace</span>
-                </div>
-
-                <div class="flex items-center gap-1.5 overflow-x-auto" id="code-tabs">
-                  <button
-                    type="button"
-                    class="tab-btn active"
-                    data-tab="frootkit"
-                    {...{ onclick: "switchCodeTab('frootkit')" }}
-                  >
-                    src/app/layout.tsx
-                  </button>
-                  <button
-                    type="button"
-                    class="tab-btn"
-                    data-tab="backend"
-                    {...{ onclick: "switchCodeTab('backend')" }}
-                  >
-                    server.ts
-                  </button>
-                  <button
-                    type="button"
-                    class="tab-btn"
-                    data-tab="docs"
-                    {...{ onclick: "switchCodeTab('docs')" }}
-                  >
-                    [slug]/page.tsx
-                  </button>
-                  <button
-                    type="button"
-                    class="tab-btn"
-                    data-tab="tailwind"
-                    {...{ onclick: "switchCodeTab('tailwind')" }}
-                  >
-                    src/styles.css
-                  </button>
-                </div>
-              </div>
-
-              <div class="p-6 overflow-x-auto font-mono text-xs sm:text-sm leading-relaxed text-zinc-300">
-                <pre><code id="code-snippet-pre" class="language-typescript" dangerouslySetInnerHTML={{ __html: highlightCode(CODE_SNIPPETS['frootkit']!, 'typescript') }} /></pre>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Installation & Next Steps Section */}
-        <section class="py-20">
-          <div class="max-w-4xl mx-auto px-6 text-center">
-            <h2 class="text-3xl sm:text-4xl font-semibold text-white tracking-[-0.025em] mb-4">
-              Start Building with Froot Today
-            </h2>
-            <p class="text-zinc-400 text-base mb-8 max-w-xl mx-auto">
-              Choose your starter template or scaffold a bare-metal API microservice in seconds.
+      {/* HERO SECTION WITH STRIPE GRADIENT */}
+      <section class="hero-gradient relative pb-36 pt-24 text-white md:pb-48 md:pt-32">
+        <div class="mx-auto max-w-6xl px-6 grid items-center gap-12 lg:grid-cols-[1.1fr_1fr]">
+          <div class="rise">
+            <span class="bd bg-white/15 text-white backdrop-blur-sm">
+              <i class="h-1.5 w-1.5 rounded-full bg-[#00d4ff]" />
+              FrootKit v1.3.6 &amp; FrootUI Live
+            </span>
+            <h1 class="mt-5 text-[42px] font-light leading-[1.08] tracking-tight text-white md:text-[58px] md:leading-[64px]">
+              The Next.js alternative built for speed, not slop.
+            </h1>
+            <p class="mt-6 max-w-xl text-[18px] font-light leading-7 text-white/90">
+              Sub-millisecond Preact SSR, monomorphic V8 backend at 124,000 req/sec, native Tailwind CSS v4, and the complete Stripe design system. Zero heavy client bundles. Zero stuck port processes.
             </p>
-            <div class="flex flex-wrap items-center justify-center gap-3.5">
-              <a href="/docs/quickstart" class="btn-primary">
-                <span>Quickstart Guide</span>
-                <span class="text-zinc-500">→</span>
+
+            <div class="mt-8 flex flex-wrap items-center gap-4">
+              <a href="/docs" class="btn btn-white shadow-[0_13px_27px_-5px_rgba(50,50,93,0.25),0_8px_16px_-8px_rgba(0,0,0,0.3)]">
+                Start Building Free
               </a>
-              <a
-                href="https://github.com/orbitnorth/froot"
-                target="_blank"
-                rel="noreferrer"
-                class="btn-secondary"
-              >
-                View on GitHub
+              <a href="#frootui" class="btn btn-glass">
+                Explore FrootUI
               </a>
             </div>
-          </div>
-        </section>
-      </main>
 
-      {/* Semantic Accessible Footer */}
-      <footer class="border-t border-white/[0.08] bg-[#08090a] py-8 px-6">
-        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-500">
-          <div class="flex items-center gap-2">
-            <span class="font-medium text-zinc-300">Froot Ecosystem</span>
-            <span>•</span>
-            <span>OrbitNorth LLC</span>
+            {/* Quick Scaffold Command */}
+            <div class="mt-8 flex items-center gap-3">
+              <div class="flex items-center gap-3 rounded-lg bg-[#0a2540]/80 border border-white/20 px-4 py-2.5 font-mono text-[13px] text-white shadow-card">
+                <span class="text-[#00d4ff]">$</span>
+                <span>pnpm create frootkit@latest my-app</span>
+              </div>
+            </div>
+            <p class="mt-3 text-[13px] text-white/75">
+              Includes pre-configured Stripe auth, ecommerce, and blog templates.
+            </p>
           </div>
+
+          {/* Floating Live Telemetry Mock */}
+          <div class="rise relative [animation-delay:.15s]" aria-hidden="true">
+            <div class="overflow-hidden rounded-xl bg-white text-[#425466] shadow-[0_13px_27px_-5px_rgba(50,50,93,0.25),0_8px_16px_-8px_rgba(0,0,0,0.3)]">
+              {/* Window Header */}
+              <div class="flex items-center gap-1.5 border-b border-[#e6ebf1] bg-[#f6f9fc] px-4 py-3">
+                <i class="h-2.5 w-2.5 rounded-full bg-[#cd3d64]" />
+                <i class="h-2.5 w-2.5 rounded-full bg-[#c98a00]" />
+                <i class="h-2.5 w-2.5 rounded-full bg-[#24b47e]" />
+                <span class="ml-3 font-mono text-[12px] text-[#425466]">telemetry.frootkit.dev</span>
+                <span class="ml-auto bd bg-[#24b47e]/15 text-[#0e6245] text-[11px] py-0 px-2 font-medium">
+                  Active Runtime
+                </span>
+              </div>
+
+              <div class="p-6">
+                <div class="flex items-end justify-between border-b border-[#e6ebf1] pb-4">
+                  <div>
+                    <p class="text-[13px] text-[#425466] font-medium">Fullstack Engine Latency (P99)</p>
+                    <p class="font-mono text-[32px] font-normal text-[#0a2540] tracking-tight">0.42ms</p>
+                  </div>
+                  <span class="bd bg-[#24b47e]/15 text-[#0e6245]">+310% vs Next.js 15</span>
+                </div>
+
+                {/* SVG Performance Curve */}
+                <svg viewBox="0 0 300 80" class="mt-4 h-20 w-full">
+                  <defs>
+                    <linearGradient id="heroMetricGrad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0" stop-color="#635bff" stop-opacity="0.3" />
+                      <stop offset="1" stop-color="#635bff" stop-opacity="0" />
+                    </linearGradient>
+                  </defs>
+                  <path d="M0 60 C30 55 45 40 75 42 S120 22 150 26 S210 12 240 16 S285 6 300 4 V80 H0Z" fill="url(#heroMetricGrad)" />
+                  <path d="M0 60 C30 55 45 40 75 42 S120 22 150 26 S210 12 240 16 S285 6 300 4" fill="none" stroke="#635bff" stroke-width="2.5" stroke-linecap="round" />
+                </svg>
+
+                {/* Micro Telemetry Rows */}
+                <div class="mt-4 divide-y divide-[#e6ebf1] text-[13px]">
+                  <div class="flex items-center justify-between py-2">
+                    <span class="font-medium text-[#0a2540]">Monomorphic V8 Dispatch</span>
+                    <span class="font-mono text-[#0a2540] font-semibold">22 nanoseconds</span>
+                  </div>
+                  <div class="flex items-center justify-between py-2">
+                    <span class="font-medium text-[#0a2540]">Client Hydration Bundle</span>
+                    <span class="font-mono text-[#0a2540] font-semibold">3.1 KB gzipped</span>
+                  </div>
+                  <div class="flex items-center justify-between py-2">
+                    <span class="font-medium text-[#0a2540]">Process Port Release</span>
+                    <span class="bd bg-[#24b47e]/15 text-[#0e6245]">Instant on exit</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* METRIC STRIP */}
+      <section class="border-b border-[#e6ebf1] bg-[#f6f9fc] py-10">
+        <div class="mx-auto max-w-6xl px-6 grid gap-8 text-center sm:grid-cols-4">
+          <div>
+            <p class="font-mono text-[36px] font-light text-[#0a2540]">124,000</p>
+            <p class="text-[13px] text-[#425466] mt-1 font-medium">Req / sec V8 Throughput</p>
+          </div>
+          <div>
+            <p class="font-mono text-[36px] font-light text-[#0a2540]">0.42ms</p>
+            <p class="text-[13px] text-[#425466] mt-1 font-medium">Preact SSR TTFB</p>
+          </div>
+          <div>
+            <p class="font-mono text-[36px] font-light text-[#0a2540]">3.1 KB</p>
+            <p class="text-[13px] text-[#425466] mt-1 font-medium">Minimal Client Runtime</p>
+          </div>
+          <div>
+            <p class="font-mono text-[36px] font-light text-[#0a2540]">Zero</p>
+            <p class="text-[13px] text-[#425466] mt-1 font-medium">Orphan Process Leaks</p>
+          </div>
+        </div>
+      </section>
+
+      {/* FEATURES SECTION */}
+      <section id="features" class="scroll-mt-16 py-24 bg-white">
+        <div class="mx-auto max-w-6xl px-6">
+          <div class="max-w-2xl">
+            <span class="bd bg-[#635bff]/10 text-[#635bff]">Core Capabilities</span>
+            <h2 class="mt-3 text-[36px] font-light leading-tight tracking-tight text-[#0a2540]">
+              Built for production velocity without framework debt
+            </h2>
+            <p class="mt-3 text-[17px] text-[#425466]">
+              Every primitive is designed for developers who demand the ergonomics of Next.js with zero unnecessary abstractions or dark theme AI-slop.
+            </p>
+          </div>
+
+          <div class="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {features.map((feat) => (
+              <div
+                key={feat.title}
+                class="rounded-xl border border-[#e6ebf1] bg-white p-6 shadow-card hover:shadow-pop transition-all duration-200 flex flex-col justify-between"
+              >
+                <div>
+                  <div class="flex items-center justify-between">
+                    <div class="w-10 h-10 rounded-lg bg-[#f6f9fc] border border-[#e6ebf1] flex items-center justify-center">
+                      {feat.icon}
+                    </div>
+                    <span class="bd bg-[#f6f9fc] text-[#0a2540] text-[12px] font-mono">
+                      {feat.badge}
+                    </span>
+                  </div>
+                  <h3 class="mt-5 text-[18px] font-medium text-[#0a2540]">{feat.title}</h3>
+                  <p class="mt-2 text-[14px] leading-relaxed text-[#425466]">{feat.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FROOTUI COMPONENT SUITE SECTION */}
+      <section id="frootui" class="scroll-mt-16 py-24 bg-[#f6f9fc] border-y border-[#e6ebf1]">
+        <div class="mx-auto max-w-6xl px-6">
+          <div class="max-w-2xl">
+            <span class="bd bg-[#635bff]/10 text-[#635bff]">Modular UI Library</span>
+            <h2 class="mt-3 text-[36px] font-light leading-tight tracking-tight text-[#0a2540]">
+              FrootUI · Stripe Design System for FrootKit
+            </h2>
+            <p class="mt-3 text-[17px] text-[#425466]">
+              Inspired by shadcn/ui. Copy, paste, or CLI scaffold 12+ production-grade components styled with authentic Stripe tokens: blurple voltage buttons, multi-layer shadows, and subtle micro-interactions.
+            </p>
+            <div class="mt-4 flex items-center gap-3 font-mono text-[13px]">
+              <span class="bd bg-white border border-[#e6ebf1] text-[#0a2540] px-3 py-1">
+                npx frootui add button card badge table
+              </span>
+            </div>
+          </div>
+
+          {/* Interactive Component Preview Grid */}
+          <div class="mt-12 grid gap-6 md:grid-cols-3">
+            {/* Component Card 1: Buttons & Badges */}
+            <div class="rounded-xl border border-[#e6ebf1] bg-white p-6 shadow-card">
+              <h3 class="text-[16px] font-medium text-[#0a2540]">Buttons &amp; Badges</h3>
+              <p class="mt-1 text-[13px] text-[#425466]">Primary, secondary, destructive, and status pills.</p>
+
+              <div class="mt-6 flex flex-wrap gap-2.5 items-center">
+                <button class="btn btn-primary text-[13px] px-3.5 py-1.5 rounded-md">Primary</button>
+                <button class="btn btn-secondary text-[13px] px-3.5 py-1.5 rounded-md">Secondary</button>
+                <button class="btn bg-[#0a2540] text-white text-[13px] px-3.5 py-1.5 rounded-md shadow-card hover:bg-[#425466]">Dark</button>
+              </div>
+
+              <div class="mt-5 pt-5 border-t border-[#e6ebf1] flex flex-wrap gap-2">
+                <span class="bd bg-[#24b47e]/15 text-[#0e6245]"><i class="h-1.5 w-1.5 rounded-full bg-[#24b47e]" />Succeeded</span>
+                <span class="bd bg-[#cd3d64]/10 text-[#cd3d64]"><i class="h-1.5 w-1.5 rounded-full bg-[#cd3d64]" />Failed</span>
+                <span class="bd bg-[#c98a00]/15 text-[#8a5a00]">Pending</span>
+                <span class="bd bg-[#635bff]/10 text-[#635bff]">New</span>
+              </div>
+            </div>
+
+            {/* Component Card 2: Inputs & Controls */}
+            <div class="rounded-xl border border-[#e6ebf1] bg-white p-6 shadow-card">
+              <h3 class="text-[16px] font-medium text-[#0a2540]">Inputs &amp; Form Fields</h3>
+              <p class="mt-1 text-[13px] text-[#425466]">Hairline borders with Stripe focus glow ring.</p>
+
+              <div class="mt-4 space-y-3">
+                <div>
+                  <label class="block text-[12px] font-medium text-[#0a2540] mb-1">Customer Email</label>
+                  <input class="inp text-[13px] py-1.5" placeholder="jane@example.com" />
+                </div>
+                <div>
+                  <label class="block text-[12px] font-medium text-[#0a2540] mb-1">Search Payments</label>
+                  <div class="relative">
+                    <input class="inp text-[13px] py-1.5 pr-10" placeholder="Filter by invoice..." />
+                    <span class="absolute right-2 top-2 text-[11px] font-mono text-[#425466] bg-[#f6f9fc] px-1 rounded border border-[#e6ebf1]">⌘K</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Component Card 3: Metric Card with Sparkline */}
+            <div class="rounded-xl border border-[#e6ebf1] bg-white p-6 shadow-card">
+              <div class="flex items-center justify-between">
+                <h3 class="text-[16px] font-medium text-[#0a2540]">Metric Cards</h3>
+                <span class="bd bg-[#24b47e]/15 text-[#0e6245]">+14.2%</span>
+              </div>
+              <p class="mt-2 text-[13px] text-[#425466]">Monthly Recurring Revenue</p>
+              <p class="font-mono text-[28px] font-normal text-[#0a2540] mt-1">$48,250.00</p>
+
+              <svg class="mt-4 h-12 w-full" viewBox="0 0 100 30" preserveAspectRatio="none">
+                <path d="M0 24 L15 20 L30 22 L45 12 L60 15 L75 6 L100 3" fill="none" stroke="#635bff" stroke-width="2.5" stroke-linecap="round" />
+              </svg>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* BENCHMARKS SECTION */}
+      <section id="benchmarks" class="scroll-mt-16 py-24 bg-white">
+        <div class="mx-auto max-w-6xl px-6">
+          <div class="max-w-2xl">
+            <span class="bd bg-[#635bff]/10 text-[#635bff]">Benchmarked Performance</span>
+            <h2 class="mt-3 text-[36px] font-light leading-tight tracking-tight text-[#0a2540]">
+              Verified throughput and latency metrics
+            </h2>
+            <p class="mt-3 text-[17px] text-[#425466]">
+              Benchmarked on Node.js v22 on AMD EPYC 7763 instances with autocannon (100 concurrent connections, 10s duration).
+            </p>
+          </div>
+
+          <div class="mt-12 overflow-x-auto rounded-xl border border-[#e6ebf1] shadow-card">
+            <table class="w-full text-left text-[14px]">
+              <thead class="bg-[#f6f9fc] border-b border-[#e6ebf1]">
+                <tr>
+                  <th class="px-5 py-3.5 font-medium text-[#0a2540]">Framework</th>
+                  <th class="px-5 py-3.5 font-medium text-[#0a2540]">Requests / sec</th>
+                  <th class="px-5 py-3.5 font-medium text-[#0a2540]">SSR TTFB (P99)</th>
+                  <th class="px-5 py-3.5 font-medium text-[#0a2540]">Client JS Runtime</th>
+                  <th class="px-5 py-3.5 font-medium text-[#0a2540]">Tailwind Native</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-[#e6ebf1]">
+                <tr class="bg-[#635bff]/5 font-medium">
+                  <td class="px-5 py-4 text-[#0a2540] flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-[#635bff]" />
+                    <b>FrootKit (v1.3.6)</b>
+                  </td>
+                  <td class="px-5 py-4 font-mono text-[#0a2540]">124,180 req/s</td>
+                  <td class="px-5 py-4 font-mono text-[#24b47e]">0.42 ms</td>
+                  <td class="px-5 py-4 font-mono text-[#0a2540]">3.1 KB</td>
+                  <td class="px-5 py-4"><span class="bd bg-[#24b47e]/15 text-[#0e6245]">Tailwind v4 Native</span></td>
+                </tr>
+                <tr>
+                  <td class="px-5 py-4 text-[#425466]">Next.js 15 (App Router)</td>
+                  <td class="px-5 py-4 font-mono text-[#425466]">18,400 req/s</td>
+                  <td class="px-5 py-4 font-mono text-[#cd3d64]">14.8 ms</td>
+                  <td class="px-5 py-4 font-mono text-[#425466]">87.4 KB</td>
+                  <td class="px-5 py-4"><span class="bd bg-[#f6f9fc] text-[#425466]">PostCSS / Plugin</span></td>
+                </tr>
+                <tr>
+                  <td class="px-5 py-4 text-[#425466]">Remix / React Router v7</td>
+                  <td class="px-5 py-4 font-mono text-[#425466]">32,100 req/s</td>
+                  <td class="px-5 py-4 font-mono text-[#425466]">8.4 ms</td>
+                  <td class="px-5 py-4 font-mono text-[#425466]">64.2 KB</td>
+                  <td class="px-5 py-4"><span class="bd bg-[#f6f9fc] text-[#425466]">External Vite</span></td>
+                </tr>
+                <tr>
+                  <td class="px-5 py-4 text-[#425466]">Express.js (Server only)</td>
+                  <td class="px-5 py-4 font-mono text-[#425466]">24,600 req/s</td>
+                  <td class="px-5 py-4 font-mono text-[#425466]">1.8 ms</td>
+                  <td class="px-5 py-4 font-mono text-[#425466]">N/A</td>
+                  <td class="px-5 py-4"><span class="bd bg-[#f6f9fc] text-[#425466]">Manual</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* CODE STUDIO SECTION */}
+      <section id="code" class="scroll-mt-16 py-24 bg-[#0a2540] text-white">
+        <div class="mx-auto max-w-6xl px-6">
+          <div class="max-w-2xl">
+            <span class="bd bg-white/15 text-white">Zero Abstraction Architecture</span>
+            <h2 class="mt-3 text-[36px] font-light leading-tight tracking-tight text-white">
+              The simplicity of standard TypeScript
+            </h2>
+            <p class="mt-3 text-[17px] text-white/80">
+              No magical hidden bundler files, no heavy React server component boundaries. Clean files and pure Web standards.
+            </p>
+          </div>
+
+          {/* Elevated Code Box */}
+          <div class="mt-12 overflow-hidden rounded-xl border border-white/10 bg-[#0d2a4a] shadow-pop">
+            <div class="flex items-center justify-between border-b border-white/10 bg-white/[0.04] px-4 py-3">
+              <div class="flex items-center gap-2">
+                <i class="h-3 w-3 rounded-full bg-[#cd3d64]" />
+                <i class="h-3 w-3 rounded-full bg-[#c98a00]" />
+                <i class="h-3 w-3 rounded-full bg-[#24b47e]" />
+                <span class="ml-3 font-mono text-[13px] text-white/70">src/app/page.tsx</span>
+              </div>
+              <span class="font-mono text-[12px] text-[#00d4ff]">Preact SSR</span>
+            </div>
+
+            <pre class="p-6 font-mono text-[13px] leading-relaxed text-white/90 overflow-x-auto">
+{`// src/app/page.tsx — High-Performance Preact SSR with App Router
+import { Button, Card, Badge } from 'frootui';
+
+export const metadata = {
+  title: 'Production Store · FrootKit',
+  description: 'Sub-millisecond SSR with zero hydration overhead',
+};
+
+export default async function StorePage() {
+  const products = await db.query.products.findMany();
+
+  return (
+    <div class="max-w-6xl mx-auto px-6 py-12">
+      <div class="flex items-center justify-between">
+        <h1 class="text-[32px] font-light text-[#0a2540]">Curated Instruments</h1>
+        <Badge variant="success">In Stock</Badge>
+      </div>
+
+      <div class="mt-8 grid gap-6 md:grid-cols-3">
+        {products.map((item) => (
+          <Card key={item.id} variant="elevated" class="p-5">
+            <h3 class="font-medium text-[#0a2540]">{item.name}</h3>
+            <p class="font-mono text-[18px] text-[#0a2540] mt-2">\${item.price}</p>
+            <Button variant="primary" class="w-full mt-4">Add to Cart</Button>
+          </Card>
+        ))}
+      </div>
+    </div>
+  );
+}`}
+            </pre>
+          </div>
+        </div>
+      </section>
+
+      {/* CALL TO ACTION BANNER */}
+      <section class="py-20 bg-white">
+        <div class="mx-auto max-w-6xl px-6">
+          <div class="rounded-2xl p-10 md:p-16 text-white shadow-pop relative overflow-hidden" style="background: linear-gradient(160deg, #635bff 0%, #7a73ff 40%, #00d4ff 100%)">
+            <div class="max-w-xl">
+              <span class="bd bg-white/20 text-white">Get Started Today</span>
+              <h2 class="mt-4 text-[38px] font-light leading-tight tracking-tight text-white md:text-[46px]">
+                Create your first FrootKit application in 30 seconds.
+              </h2>
+              <p class="mt-4 text-[17px] text-white/90">
+                Experience sub-millisecond SSR, instant port freeing on exit, and the complete Stripe design system.
+              </p>
+
+              <div class="mt-8 flex flex-wrap gap-4 items-center">
+                <a href="/docs" class="btn btn-white shadow-card">
+                  Read Documentation
+                </a>
+                <a href="https://github.com/orbitnorth/froot" target="_blank" rel="noreferrer" class="btn btn-glass">
+                  View on GitHub
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* STRIPE CLEAN FOOTER */}
+      <footer class="border-t border-[#e6ebf1] bg-[#f6f9fc] py-12 text-[14px] text-[#425466]">
+        <div class="mx-auto max-w-6xl px-6 flex flex-wrap items-center justify-between gap-6">
+          <div class="flex items-center gap-3">
+            <span class="font-semibold text-[#0a2540]">frootkit</span>
+            <span class="text-[#e6ebf1]">|</span>
+            <span>The High-Performance Next.js Alternative</span>
+          </div>
+
           <div class="flex items-center gap-6">
-            <a href="/docs" class="hover:text-zinc-300 transition-colors">Docs</a>
-            <a href="https://github.com/orbitnorth/froot" class="hover:text-zinc-300 transition-colors">GitHub</a>
-            <a href="https://www.npmjs.com/package/create-frootkit" class="hover:text-zinc-300 transition-colors">NPM</a>
+            <a href="/docs" class="hover:text-[#0a2540] transition-colors">Documentation</a>
+            <a href="https://www.npmjs.com/package/froot-kit" target="_blank" rel="noreferrer" class="hover:text-[#0a2540] transition-colors">NPM (froot-kit)</a>
+            <a href="https://www.npmjs.com/package/frootui" target="_blank" rel="noreferrer" class="hover:text-[#0a2540] transition-colors">NPM (frootui)</a>
+            <a href="https://github.com/orbitnorth/froot" target="_blank" rel="noreferrer" class="hover:text-[#0a2540] transition-colors">GitHub</a>
           </div>
         </div>
       </footer>
-
-      {/* Script for Tab Switching & Copy Feedback */}
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-          const SNIPPETS = ${JSON.stringify(CODE_SNIPPETS)};
-
-          function switchCodeTab(tabKey) {
-            document.querySelectorAll('#code-tabs .tab-btn').forEach(btn => {
-              if (btn.getAttribute('data-tab') === tabKey) {
-                btn.classList.add('active');
-              } else {
-                btn.classList.remove('active');
-              }
-            });
-            const pre = document.getElementById('code-snippet-pre');
-            if (pre && SNIPPETS[tabKey]) {
-              pre.textContent = SNIPPETS[tabKey];
-            }
-          }
-
-          function copyInstallCmd(cmd) {
-            navigator.clipboard.writeText(cmd);
-          }
-        `,
-        }}
-      />
     </div>
   );
 }

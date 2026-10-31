@@ -9,39 +9,41 @@ export function DocsSidebar({ currentSlug }: { currentSlug: string }) {
   return (
     <aside
       id="docs-sidebar"
-      class="fixed inset-y-0 left-0 z-50 w-72 lg:w-80 bg-[#0d0e12] border-r border-white/[0.08] flex flex-col transition-transform duration-200 ease-in-out -translate-x-full md:translate-x-0"
+      class="fixed inset-y-0 left-0 z-50 w-72 lg:w-80 bg-[#f6f9fc] border-r border-[#e6ebf1] flex flex-col transition-transform duration-200 ease-in-out -translate-x-full md:translate-x-0"
     >
       {/* Sidebar Header */}
-      <div class="h-14 px-5 border-b border-white/[0.08] flex items-center justify-between">
-        <a href="/" class="flex items-center gap-2.5 group">
-          <div class="w-7 h-7 rounded-md bg-indigo-500/15 border border-indigo-500/30 flex items-center justify-center text-indigo-400 group-hover:border-indigo-400/50 transition-colors shrink-0">
-            <svg style="width: 14px; height: 14px;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-            </svg>
+      <div class="h-16 px-5 border-b border-[#e6ebf1] bg-white flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2.5">
+          <div class="w-7 h-7 rounded-md bg-[#635bff] flex items-center justify-center text-white font-bold text-xs shadow-sm">
+            F
           </div>
           <div class="flex items-center gap-2">
-            <span class="text-xs font-semibold text-white tracking-tight">Froot<span class="text-indigo-400">Kit</span></span>
-            <span class="text-[10px] font-mono text-zinc-400 bg-white/[0.04] border border-white/[0.06] px-1.5 py-0.5 rounded">v1.3.5</span>
+            <span class="text-sm font-semibold text-[#0a2540] tracking-tight">
+              froot<span class="text-[#635bff]">kit</span>
+            </span>
+            <span class="text-[10px] font-mono text-[#0a2540] bg-[#f6f9fc] border border-[#e6ebf1] px-1.5 py-0.5 rounded-full font-medium">
+              v1.3.6
+            </span>
           </div>
         </a>
 
-        <a href="/" class="text-xs text-zinc-500 hover:text-zinc-200 transition-colors" title="Back to Home">
+        <a href="/" class="text-xs font-medium text-[#425466] hover:text-[#0a2540] transition-colors" title="Back to Home">
           ← Home
         </a>
       </div>
 
       {/* Search Filter Input */}
-      <div class="p-3 border-b border-white/[0.08]">
+      <div class="p-3 border-b border-[#e6ebf1] bg-white">
         <div class="relative">
           <input
             type="text"
             placeholder="Filter documentation..."
-            class="w-full px-3 py-1.5 pl-8 text-xs rounded-lg bg-[#08090a] border border-white/[0.08] text-zinc-200 placeholder-zinc-500 focus:outline-none focus:border-indigo-500 transition-colors"
+            class="w-full px-3 py-1.5 pl-8 text-xs rounded-md bg-[#f6f9fc] border border-[#e6ebf1] text-[#0a2540] placeholder-[#8898aa] focus:outline-none focus:border-[#635bff] focus:bg-white focus:ring-2 focus:ring-[#635bff]/20 transition-all"
             {...{ oninput: 'filterDocsNav(this.value)' }}
           />
           <svg
             style="width: 13px; height: 13px;"
-            class="text-zinc-500 absolute left-2.5 top-2.5 pointer-events-none"
+            class="text-[#8898aa] absolute left-2.5 top-2.5 pointer-events-none"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -55,7 +57,7 @@ export function DocsSidebar({ currentSlug }: { currentSlug: string }) {
       <nav id="docs-nav-tree" class="flex-1 overflow-y-auto px-3 py-4 space-y-5">
         {UNIFIED_DOCS_NAV.map((section) => (
           <div key={section.title} class="space-y-1">
-            <h4 class="px-2 text-[10px] font-semibold uppercase tracking-wider text-zinc-500">
+            <h4 class="px-2 text-[11px] font-semibold uppercase tracking-wider text-[#0a2540]/60">
               {section.title}
             </h4>
             <ul class="space-y-0.5">
@@ -68,17 +70,19 @@ export function DocsSidebar({ currentSlug }: { currentSlug: string }) {
                     <a
                       href={itemHref}
                       data-title={item.title.toLowerCase()}
-                      class={`doc-nav-link flex items-center justify-between px-2.5 py-1.5 rounded-md text-xs transition-colors ${
+                      class={`doc-nav-link flex items-center justify-between px-2.5 py-1.5 rounded-md text-xs transition-all ${
                         isActive
-                          ? 'bg-white/[0.08] text-white border border-white/[0.08] font-medium shadow-[inset_0_1px_0_0_rgba(255,255,255,0.06)]'
-                          : 'text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.04]'
+                          ? 'bg-white text-[#635bff] border border-[#e6ebf1] font-medium shadow-[0_1px_3px_rgba(50,50,93,0.08),0_1px_0_rgba(0,0,0,0.02)]'
+                          : 'text-[#425466] hover:text-[#0a2540] hover:bg-white/70'
                       }`}
                     >
                       <span>{item.title}</span>
                       {item.badge && (
                         <span
-                          class={`text-[9px] font-medium px-1.5 py-0.2 rounded-full ${
-                            isActive ? 'bg-indigo-500/20 text-indigo-300' : 'bg-white/[0.04] text-zinc-500 border border-white/[0.06]'
+                          class={`text-[9px] font-medium px-1.5 py-0.5 rounded-full ${
+                            isActive
+                              ? 'bg-[#635bff]/10 text-[#635bff]'
+                              : 'bg-white text-[#425466] border border-[#e6ebf1]'
                           }`}
                         >
                           {item.badge}
@@ -94,19 +98,20 @@ export function DocsSidebar({ currentSlug }: { currentSlug: string }) {
       </nav>
 
       {/* Footer link */}
-      <div class="p-3 border-t border-white/[0.08] bg-[#090a0f] flex items-center justify-between text-xs text-zinc-500">
+      <div class="p-3 border-t border-[#e6ebf1] bg-white flex items-center justify-between text-xs text-[#425466]">
         <a
           href="https://github.com/orbitnorth/froot"
           target="_blank"
           rel="noreferrer"
-          class="flex items-center gap-1.5 hover:text-zinc-300 transition-colors"
+          class="hover:text-[#0a2540] flex items-center gap-1 font-medium transition-colors"
         >
-          <svg style="width: 13px; height: 13px;" class="fill-current" viewBox="0 0 24 24">
-            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-          </svg>
           <span>GitHub</span>
+          <svg style="width: 10px; height: 10px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
         </a>
-        <span class="text-[10px] font-mono text-zinc-500">Froot Ecosystem</span>
+
+        <span class="text-[11px] font-mono text-[#8898aa]">MIT</span>
       </div>
     </aside>
   );

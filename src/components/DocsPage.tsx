@@ -34,28 +34,28 @@ export function DocsPage({
     <div class="relative">
       <div class="xl:mr-64">
         {/* Breadcrumbs */}
-        <nav class="flex items-center gap-2 text-xs text-zinc-500 mb-6 font-medium">
-          <a href="/docs" class="hover:text-zinc-300 transition-colors">
+        <nav class="flex items-center gap-2 text-xs text-[#425466] mb-6 font-medium">
+          <a href="/docs" class="text-[#635bff] hover:underline">
             Docs
           </a>
           <span>/</span>
-          <span class="text-zinc-400">{category}</span>
+          <span class="text-[#425466]">{category}</span>
           <span>/</span>
-          <span class="text-zinc-200">{title}</span>
+          <span class="text-[#0a2540] font-semibold">{title}</span>
         </nav>
 
         {/* Header Block */}
-        <header class="mb-10 pb-8 border-b border-white/[0.08]">
-          <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full text-[11px] font-medium text-indigo-400 bg-indigo-500/10 border border-indigo-500/20 mb-4">
+        <header class="mb-10 pb-8 border-b border-[#e6ebf1]">
+          <div class="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full text-[11px] font-medium text-[#635bff] bg-[#635bff]/10 mb-4">
             <span>{category}</span>
           </div>
 
-          <h1 class="text-3xl sm:text-4xl font-semibold text-white tracking-[-0.025em] mb-4">
+          <h1 class="text-3xl sm:text-4xl font-light text-[#0a2540] tracking-[-0.025em] mb-4">
             {title}
           </h1>
 
           {summary && (
-            <p class="text-base sm:text-lg text-zinc-400 leading-relaxed max-w-3xl font-normal">
+            <p class="text-base sm:text-lg text-[#425466] leading-relaxed max-w-3xl font-normal">
               {summary}
             </p>
           )}
@@ -63,22 +63,22 @@ export function DocsPage({
 
         {/* Markdown Content */}
         <div
-          class="prose max-w-none text-zinc-300"
+          class="prose max-w-none"
           dangerouslySetInnerHTML={{ __html: markdownHtml }}
         />
 
         {/* Previous / Next Pagination Cards */}
         {(prev || next) && (
-          <div class="mt-16 pt-8 border-t border-white/[0.08] grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="mt-16 pt-8 border-t border-[#e6ebf1] grid grid-cols-1 sm:grid-cols-2 gap-4">
             {prev ? (
               <a
                 href={prev.id === 'overview' ? '/docs' : `/docs/${prev.id}`}
-                class="group p-4 rounded-xl bg-[#0f1117] border border-white/[0.08] hover:border-white/[0.18] transition-all flex flex-col justify-between shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)]"
+                class="group p-5 rounded-xl bg-white border border-[#e6ebf1] shadow-card hover:shadow-pop transition-all flex flex-col justify-between"
               >
-                <span class="text-[11px] font-medium text-zinc-500 group-hover:text-zinc-400 transition-colors">
+                <span class="text-[12px] font-medium text-[#8898aa] group-hover:text-[#635bff] transition-colors">
                   ← Previous
                 </span>
-                <span class="text-sm font-semibold text-white mt-1 group-hover:text-zinc-100 transition-colors">
+                <span class="text-sm font-semibold text-[#0a2540] mt-1 group-hover:text-[#635bff] transition-colors">
                   {prev.title}
                 </span>
               </a>
@@ -89,12 +89,12 @@ export function DocsPage({
             {next && (
               <a
                 href={next.id === 'overview' ? '/docs' : `/docs/${next.id}`}
-                class="group p-4 rounded-xl bg-[#0f1117] border border-white/[0.08] hover:border-white/[0.18] transition-all flex flex-col justify-between text-right shadow-[inset_0_1px_0_0_rgba(255,255,255,0.05)]"
+                class="group p-5 rounded-xl bg-white border border-[#e6ebf1] shadow-card hover:shadow-pop transition-all flex flex-col justify-between text-right"
               >
-                <span class="text-[11px] font-medium text-zinc-500 group-hover:text-zinc-400 transition-colors">
+                <span class="text-[12px] font-medium text-[#8898aa] group-hover:text-[#635bff] transition-colors">
                   Next →
                 </span>
-                <span class="text-sm font-semibold text-white mt-1 group-hover:text-zinc-100 transition-colors">
+                <span class="text-sm font-semibold text-[#0a2540] mt-1 group-hover:text-[#635bff] transition-colors">
                   {next.title}
                 </span>
               </a>
@@ -105,8 +105,8 @@ export function DocsPage({
 
       {/* Right Table of Contents (Desktop sticky) */}
       {filteredHeadings.length > 0 && (
-        <aside class="hidden xl:block fixed right-8 top-28 w-56 max-h-[calc(100vh-8rem)] overflow-y-auto pl-4 border-l border-white/[0.08] text-xs">
-          <h5 class="text-[10px] font-semibold uppercase tracking-wider text-zinc-500 mb-3">
+        <aside class="hidden xl:block fixed right-8 top-28 w-56 max-h-[calc(100vh-8rem)] overflow-y-auto pl-4 border-l border-[#e6ebf1] text-xs">
+          <h5 class="text-[11px] font-semibold uppercase tracking-wider text-[#0a2540]/60 mb-3">
             On This Page
           </h5>
           <ul class="space-y-2">
@@ -114,8 +114,8 @@ export function DocsPage({
               <li key={item.id}>
                 <a
                   href={`#${item.id}`}
-                  class={`block text-zinc-400 hover:text-white transition-colors ${
-                    item.level === 3 ? 'pl-2 text-[11px] text-zinc-500' : 'font-medium'
+                  class={`block text-[#425466] hover:text-[#635bff] transition-colors ${
+                    item.level === 3 ? 'pl-2 text-[11px] text-[#8898aa]' : 'font-medium'
                   }`}
                 >
                   {item.text}
