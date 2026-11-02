@@ -78,6 +78,17 @@ export function DocsLayout({ currentPath, currentSlug, children }: DocsLayoutPro
               }
             }
 
+            document.addEventListener('keydown', function(e) {
+              if (e.key === 'Escape') {
+                const sidebar = document.getElementById('docs-sidebar');
+                const backdrop = document.getElementById('docs-backdrop');
+                if (sidebar && !sidebar.classList.contains('-translate-x-full')) {
+                  sidebar.classList.add('-translate-x-full');
+                  backdrop?.classList.add('hidden');
+                }
+              }
+            });
+
             function filterDocsNav(query) {
               const q = query.toLowerCase().trim();
               const links = document.querySelectorAll('.doc-nav-link');

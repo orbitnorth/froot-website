@@ -10,6 +10,8 @@
   --color-card-hover: #141417;
   --color-hairline: #222226;
   --color-hairline-bright: #333338;
+  --color-border: #222226;
+  --color-border-subtle: #18181c;
   --color-brand: #ffffff;
   --color-accent: #0070f3;
   --color-cyan: #06b6d4;
@@ -26,6 +28,8 @@
   --card-hover: #141417;
   --hairline: #222226;
   --hairline-bright: #333338;
+  --border: #222226;
+  --border-subtle: #18181c;
   --text-primary: #ededed;
   --text-secondary: #a1a1aa;
   --text-muted: #71717a;

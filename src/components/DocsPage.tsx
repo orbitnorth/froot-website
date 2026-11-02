@@ -4,9 +4,9 @@ import { h, Fragment } from 'preact';
 import type { DocItem } from '../data/docs-nav.js';
 
 export interface HeadingItem {
-  level: number;
-  id: string;
-  text: string;
+  level?: number;
+  id?: string;
+  text?: string;
 }
 
 export interface DocsPageProps {
@@ -28,7 +28,9 @@ export function DocsPage({
   prev,
   next,
 }: DocsPageProps) {
-  const filteredHeadings = (headings || []).filter((h) => h.level === 2 || h.level === 3);
+  const filteredHeadings = (headings || []).filter(
+    (h): h is Required<HeadingItem> => (h.level === 2 || h.level === 3) && Boolean(h.id && h.text)
+  );
 
   return (
     <div class="relative">

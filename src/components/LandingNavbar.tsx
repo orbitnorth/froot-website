@@ -42,7 +42,7 @@ export function LandingNavbar() {
               <a href="#features" class="hover:text-white transition-colors">Features</a>
               <a href="#frootui" class="hover:text-white transition-colors flex items-center gap-1.5">
                 <span>FrootUI</span>
-                <span class="text-[9px] font-mono px-1.5 py-0.2 rounded border border-neutral-700 bg-neutral-800 text-neutral-300">New</span>
+                <span class="text-[9px] font-mono px-1.5 py-0.5 rounded border border-neutral-700 bg-neutral-800 text-neutral-300">New</span>
               </a>
               <a href="#benchmarks" class="hover:text-white transition-colors">Benchmarks</a>
               <a href="#code" class="hover:text-white transition-colors">Architecture</a>
@@ -68,9 +68,65 @@ export function LandingNavbar() {
             >
               Get Started
             </a>
+
+            {/* Mobile Hamburger Toggle */}
+            <button
+              type="button"
+              id="mobile-nav-toggle"
+              aria-label="Toggle Navigation"
+              class="md:hidden p-1.5 rounded-md border border-[#222226] text-neutral-400 hover:text-white hover:bg-[#141417] transition-colors"
+              {...{ onclick: 'toggleMobileNav()' }}
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* Mobile Dropdown Panel */}
+        <div
+          id="mobile-nav-panel"
+          class="hidden md:hidden border-t border-[#222226] bg-[#09090b]/98 px-6 py-4 space-y-3 text-sm font-medium"
+        >
+          <a href="#features" class="block text-neutral-300 hover:text-white py-1" {...{ onclick: 'toggleMobileNav()' }}>
+            Features
+          </a>
+          <a href="#frootui" class="flex items-center justify-between text-neutral-300 hover:text-white py-1" {...{ onclick: 'toggleMobileNav()' }}>
+            <span>FrootUI Primitives</span>
+            <span class="text-[9px] font-mono px-1.5 py-0.5 rounded border border-neutral-700 bg-neutral-800 text-neutral-300">New</span>
+          </a>
+          <a href="#benchmarks" class="block text-neutral-300 hover:text-white py-1" {...{ onclick: 'toggleMobileNav()' }}>
+            Benchmarks
+          </a>
+          <a href="#code" class="block text-neutral-300 hover:text-white py-1" {...{ onclick: 'toggleMobileNav()' }}>
+            Architecture
+          </a>
+          <a href="/docs" class="block text-neutral-300 hover:text-white py-1">
+            Documentation
+          </a>
+          <div class="pt-2 border-t border-[#222226] flex items-center justify-between text-xs text-neutral-400">
+            <a href="https://github.com/orbitnorth/froot" target="_blank" rel="noreferrer" class="hover:text-white">
+              GitHub Repository →
+            </a>
+            <span class="font-mono text-neutral-500">v1.3.6</span>
           </div>
         </div>
       </header>
+
+      {/* Script for mobile navbar toggle */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `
+            function toggleMobileNav() {
+              const panel = document.getElementById('mobile-nav-panel');
+              if (panel) {
+                panel.classList.toggle('hidden');
+              }
+            }
+          `,
+        }}
+      />
     </>
   );
 }
