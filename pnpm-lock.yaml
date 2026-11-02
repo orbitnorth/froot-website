@@ -8,15 +8,12 @@ importers:
 
   .:
     dependencies:
-      froot-kit:
-        specifier: ^1.3.0
-        version: 1.3.0
       frootjs:
         specifier: ^1.0.6
         version: 1.0.6(preact-render-to-string@6.8.2)(preact@11.1.0)
       frootkit:
-        specifier: npm:froot-kit@^1.3.0
-        version: froot-kit@1.3.0
+        specifier: npm:froot-kit@^1.3.2
+        version: froot-kit@1.3.11
       preact:
         specifier: ^11.1.0
         version: 11.1.0(preact-render-to-string@6.8.2)
@@ -424,8 +421,8 @@ packages:
     resolution: {integrity: sha512-YsGpe3WHLK8ZYi4tWDg2Jy3ebRz2rXowDxnld4bkQB00cc/1Zw9AWnC0i9ztDJitivtQvaI9KaLyKrc+hBW0yg==}
     engines: {node: '>=8'}
 
-  froot-kit@1.3.0:
-    resolution: {integrity: sha512-Iz0CD8eBPcnxWbn0bFxJaH7Tn8ivKuo6Jxv9haxpdcgh8ucSWKWcaXz6GnUgsZ0U9eqr73j0IosbQcDcqJ4U+w==}
+  froot-kit@1.3.11:
+    resolution: {integrity: sha512-zO7JvZzXF46nqa896mR5gQkm8hV13vasn+mWu/f39BW8Yuau1wq/BjF6+00lbN7RJIn2UYKat3e7g64VBkqItQ==}
     hasBin: true
 
   frootjs@1.0.6:
@@ -879,7 +876,7 @@ snapshots:
     dependencies:
       to-regex-range: 5.0.1
 
-  froot-kit@1.3.0:
+  froot-kit@1.3.11:
     dependencies:
       frootjs: 1.0.6(preact-render-to-string@6.8.2)(preact@11.1.0)
       preact: 11.1.0(preact-render-to-string@6.8.2)
