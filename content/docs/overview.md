@@ -9,26 +9,24 @@ badge: Core Concept
 
 The **Froot Ecosystem** is an ultra-fast, modern TypeScript stack consisting of two complementary engines:
 
-```
-+--------------------------------------------------------------------------+
-|                               Froot Ecosystem                            |
-+--------------------------------------------------------------------------+
-|                                                                          |
-|   🍏 FrootKit (Fullstack & Web UI)      ⚡ Frootjs (Backend API Engine)   |
-|   --------------------------------      --------------------------------- |
-|   - Next.js App Router Parity           - Monomorphic V8 Inline Caches   |
-|   - Hierarchical Nested Layouts         - < 25ns Tier-1 Route Lookup     |
-|   - Preact SSR (3 KB vs 85 KB React)    - 124,000+ req/sec Throughput    |
-|   - Native Tailwind CSS v4 (@theme)     - Built-in JWT, Crypto, OpenAPI  |
-|   - Markdown Engine (getDoc, TOC)       - WebSockets & Pub/Sub Hub       |
-|   - Static Site Generation (.froot)     - Streaming & Server-Sent Events |
-|                                                                          |
-+--------------------------------------------------------------------------+
-```
+| FrootKit (Fullstack & Web UI) | Frootjs (Backend Engine) |
+| :--- | :--- |
+| **Next.js App Router Parity** | **Monomorphic V8 Inline Caches** |
+| File-based routing with layout.tsx and page.tsx | Zero polymorphic de-optimizations in hot paths |
+| **Hierarchical Nested Layouts** | **Sub-25ns Route Lookup** |
+| Root document shells and cascading section layouts | Tier-1 O(1) hash maps and Radix tree dispatch |
+| **Preact SSR Runtime (~3 KB)** | **124,000+ req/sec Throughput** |
+| Tiny footprint vs 85 KB React client bundles | Pre-allocated contexts and zero-copy TCP corking |
+| **Native Tailwind CSS v4** | **Batteries Included** |
+| Pure CSS @theme design tokens with zero PostCSS | Built-in JWT, AES-GCM crypto, OpenAPI 3.1 Scalar docs |
+| **Markdown Content Engine** | **Realtime Primitives** |
+| Built-in frontmatter parsing and automated TOC | Distributed WebSockets, Pub/Sub hub, SSE streaming |
+| **Static Site Generation (.froot/)** | **Minimal Heap Churn** |
+| Sub-second static pre-rendering into .froot/ | Zero-allocation request and response abstraction |
 
 ---
 
-## 1. 🍏 FrootKit (Fullstack & Next.js Alternative)
+## 1. FrootKit (Fullstack & Next.js Alternative)
 
 **FrootKit** pairs the familiar file-based App Router conventions of Next.js with the raw speed and tiny footprint of Preact SSR and Tailwind CSS v4.
 
@@ -39,7 +37,7 @@ The **Froot Ecosystem** is an ultra-fast, modern TypeScript stack consisting of 
 
 ---
 
-## 2. ⚡ Frootjs (Backend Engine & HTTP Micro-Framework)
+## 2. Frootjs (Backend Engine & HTTP Micro-Framework)
 
 **Frootjs** is a high-throughput, TypeScript-native web framework engineered for sub-25ns routing and zero heap churn.
 

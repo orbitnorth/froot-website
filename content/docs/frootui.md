@@ -13,7 +13,7 @@ It gives you the best of both worlds:
 
 ---
 
-## ⚡ Modern Developer Design System Tokens
+## Modern Developer Design System Tokens
 
 FrootUI implements the design tokens from high-performance developer platforms and infrastructure consoles:
 
@@ -29,7 +29,7 @@ FrootUI implements the design tokens from high-performance developer platforms a
 
 ---
 
-## 🚀 Quickstart via CLI (shadcn-style)
+## Quickstart via CLI (shadcn-style)
 
 ### 1. Initialize FrootUI in your project
 ```bash
@@ -49,7 +49,7 @@ npx frootui add --all
 
 ---
 
-## 📦 Using as an NPM Package
+## Using as an NPM Package
 
 You can also install `frootui` directly:
 
@@ -80,7 +80,7 @@ export default function ServicePage() {
 
 ---
 
-## 🎨 Component Catalog
+## Component Catalog
 
 | Component | Variants / Sizes | Description |
 | :--- | :--- | :--- |

@@ -25,7 +25,7 @@ export function DocsLayout({ currentPath, currentSlug, children }: DocsLayoutPro
       <DocsSidebar currentSlug={activeSlug} />
 
       {/* RIGHT MAIN CONTENT AREA */}
-      <div class="flex-1 min-w-0 md:ml-72 lg:ml-80 flex flex-col min-h-screen bg-black">
+      <div class="flex-1 min-w-0 md:pl-64 flex flex-col min-h-screen bg-black">
         {/* Mobile Top Bar */}
         <div class="md:hidden sticky top-0 z-30 bg-[#0a0a0c]/95 backdrop-blur-md border-b border-[#222226] p-3.5 flex items-center justify-between">
           <button
@@ -45,7 +45,7 @@ export function DocsLayout({ currentPath, currentSlug, children }: DocsLayoutPro
         </div>
 
         {/* Main Document Body */}
-        <main class="flex-1 max-w-4xl w-full mx-auto px-6 py-10 lg:px-12">
+        <main class="flex-1 w-full min-w-0">
           {children}
         </main>
 
@@ -60,7 +60,7 @@ export function DocsLayout({ currentPath, currentSlug, children }: DocsLayoutPro
         </footer>
       </div>
 
-      {/* Client-side script for sidebar toggle & filter */}
+      {/* Client-side script for sidebar toggle, filter & copy button */}
       <script
         dangerouslySetInnerHTML={{
           __html: `
@@ -103,6 +103,25 @@ export function DocsLayout({ currentPath, currentSlug, children }: DocsLayoutPro
                 }
               });
             }
+
+            function copyCode(btn) {
+              if (!btn) return;
+              const card = btn.closest('.code-card') || btn.closest('.code-window') || btn.parentElement;
+              if (!card) return;
+              const codeEl = card.querySelector('code') || card.querySelector('pre');
+              const text = codeEl ? (codeEl.innerText || codeEl.textContent || '') : '';
+              if (!text) return;
+              navigator.clipboard.writeText(text.trim()).then(function() {
+                const prev = btn.textContent;
+                btn.textContent = 'Copied!';
+                btn.classList.add('text-white', 'border-white/40');
+                setTimeout(function() {
+                  btn.textContent = prev;
+                  btn.classList.remove('text-white', 'border-white/40');
+                }, 2000);
+              });
+            }
+            window.copyCode = copyCode;
           `,
         }}
       />

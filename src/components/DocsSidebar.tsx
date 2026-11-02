@@ -9,7 +9,7 @@ export function DocsSidebar({ currentSlug }: { currentSlug: string }) {
   return (
     <aside
       id="docs-sidebar"
-      class="fixed inset-y-0 left-0 z-50 w-72 lg:w-80 bg-[#09090b] border-r border-[#222226] flex flex-col transition-transform duration-200 ease-in-out -translate-x-full md:translate-x-0"
+      class="fixed inset-y-0 left-0 z-50 w-64 bg-[#09090b] border-r border-[#222226] flex flex-col transition-transform duration-200 ease-in-out -translate-x-full md:translate-x-0"
     >
       {/* Sidebar Header */}
       <div class="h-16 px-5 border-b border-[#222226] bg-[#09090b] flex items-center justify-between">
