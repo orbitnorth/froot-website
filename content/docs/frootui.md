@@ -1,11 +1,11 @@
 ---
-title: FrootUI & Stripe Design System
-summary: Modular, shadcn-style component library and CLI powered by the Stripe Design System for FrootKit.
+title: FrootUI & Developer Design System
+summary: Modular, shadcn-style component library and CLI powered by the modern developer design system (Next.js, Vercel, Render) for FrootKit.
 ---
 
-# FrootUI — Stripe Design System for FrootKit
+# FrootUI — Modern Developer Design System for FrootKit
 
-FrootUI is a structured, modular UI library and CLI tool inspired by **shadcn/ui** and crafted around the **Stripe Design System**.
+FrootUI is a structured, modular UI library and CLI tool inspired by **shadcn/ui** and crafted around the **modern developer design system** popularized by Next.js, Vercel, Render, and Replit.
 
 It gives you the best of both worlds:
 1. **Importable NPM Package (`frootui`)**: Ready-to-use, typed Preact and React components.
@@ -13,19 +13,19 @@ It gives you the best of both worlds:
 
 ---
 
-## ⚡ Stripe Design System Tokens
+## ⚡ Modern Developer Design System Tokens
 
-FrootUI implements the design tokens from Stripe's internal developer platform and financial checkout systems:
+FrootUI implements the design tokens from high-performance developer platforms and infrastructure consoles:
 
-- **Voltage Interactive Accent (`#533afd`)**: High-voltage single-CTA button hierarchy, focused micro-bevels, and active glow rings (`0 0 0 4px rgba(83, 58, 253, 0.2)`).
-- **Deep Navy Hierarchy**: Headings (`#0a2540` / `#061b31`), secondary labels (`#425466`), and muted captions (`#6b7c93`).
-- **Dark Mode Matrix**: Obsidian canvas (`#0a0b0d`), card surfaces (`#111318`), and hairline borders (`rgba(255, 255, 255, 0.08)`).
-- **Multi-Layer Blue-Tinted Shadows**:
-  - `shadow-sm`: `0 1px 3px rgba(50, 50, 93, 0.12), 0 1px 0 rgba(0, 0, 0, 0.02)`
-  - `shadow-md`: `0 4px 6px rgba(50, 50, 93, 0.08), 0 1px 3px rgba(0, 0, 0, 0.08)`
-  - `shadow-lg`: `0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3)`
-- **Tabular Figures (`tabular-nums`)**: Strict alignment across monetary values, metrics, and data tables.
-- **Angled Mesh Gradients**: Slanted background ribbons (`skewY(-6deg)`) and vibrant mesh gradients (`#533afd` → `#7a5af8` → `#00d4b2`).
+- **High-Contrast Monochrome CTA (`#ffffff` / `#000000`)**: Pure white interactive action buttons with crisp black typography, subtle hover transitions, and hairline focus states.
+- **Deep Obsidian Canvas**: Pitch-black canvas (`#000000`), card surfaces (`#0a0a0c` / `#0e0e11`), and hairline borders (`#222226` / `#333338`).
+- **Crisp Monospace Accents**: JetBrains Mono / Geist Mono for telemetry metrics, status pills, shortcuts, and route badges.
+- **Micro Status Indicators**:
+  - `Deployed / Succeeded`: Emerald (`#10b981`) with pulsing status dots.
+  - `Running / Stream`: Cyan (`#06b6d4`) and Electric Blue (`#0070f3`).
+  - `Queued / Notice`: Amber (`#f59e0b`).
+  - `Failed / Error`: Rose (`#f43f5e`).
+- **Precision Hairlines & Grids**: Minimalist 1px borders, subtle 40px grid patterns, and radial ambient spotlights.
 
 ---
 
@@ -35,7 +35,7 @@ FrootUI implements the design tokens from Stripe's internal developer platform a
 ```bash
 npx frootui init
 ```
-This generates `frootui.json`, initializes `src/components/ui/`, creates standalone `src/utils/cn.ts`, and injects Stripe tokens into your `styles.css`.
+This generates `frootui.json`, initializes `src/components/ui/`, creates standalone `src/utils/cn.ts`, and injects modern developer tokens into your `styles.css`.
 
 ### 2. Add individual components
 ```bash
@@ -60,17 +60,17 @@ npm install frootui
 ```tsx
 import { Button, Card, Badge, MetricCard, Input } from 'frootui';
 
-export default function CheckoutPage() {
+export default function ServicePage() {
   return (
-    <Card accentTop>
-      <div class="p-6 space-y-4">
+    <Card class="border border-neutral-800 bg-neutral-900/60 p-6 rounded-xl">
+      <div class="space-y-4">
         <div class="flex items-center justify-between">
-          <h3 class="text-lg font-semibold text-[#0a2540] dark:text-white">Payment Method</h3>
-          <Badge variant="voltage">Instant Settlement</Badge>
+          <h3 class="text-lg font-semibold text-white">Edge Deployment</h3>
+          <Badge variant="success">Active Runtime</Badge>
         </div>
-        <Input label="Cardholder Name" placeholder="Alex Rivera" />
+        <Input label="Environment Variable" placeholder="API_SECRET_KEY" />
         <Button variant="primary" size="lg" class="w-full">
-          Confirm Payment ($149.00)
+          Deploy to Production
         </Button>
       </div>
     </Card>
@@ -84,16 +84,14 @@ export default function CheckoutPage() {
 
 | Component | Variants / Sizes | Description |
 | :--- | :--- | :--- |
-| `Button` | `primary`, `secondary`, `outline`, `ghost`, `danger`, `link` (xs, sm, md, lg) | Stripe Voltage button with micro-bevel and shadow elevation. Supports `isLoading` with animated SVG spinner. |
-| `Badge` | `success`, `warning`, `danger`, `info`, `voltage`, `neutral` (sm, md) | Semantic status indicator with optional pulsing dot. |
-| `Card` | `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter` | Surface container with hairline borders, optional top gradient accent, and multi-layer shadows. |
-| `Input` | Standard, with `label`, `error`, `helperText`, `leftAddon`, `rightAddon` | Form input with smooth transition to Stripe indigo focus ring. |
-| `Table` | `TableHeader`, `TableBody`, `TableRow`, `TableHead`, `TableCell` | Stripe Dashboard financial reconciliation table with tabular figures. |
-| `MetricCard` | With `label`, `value`, `change`, `isPositive`, `sparklineData` | Stripe Analytics KPI card with trend pill and SVG sparklines. |
-| `Tabs` | `underline`, `pills` | Stripe Dashboard tab switchers. |
+| `Button` | `primary`, `secondary`, `outline`, `ghost`, `danger`, `link` (xs, sm, md, lg) | Monochromatic primary and dark secondary buttons with hairline borders. Supports `isLoading` with animated SVG spinner. |
+| `Badge` | `success`, `warning`, `danger`, `info`, `neutral` (sm, md) | Monospace status indicator with optional pulsing dot. |
+| `Card` | `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter` | Surface container with hairline borders, dark background, and subtle hover states. |
+| `Input` | Standard, with `label`, `error`, `helperText`, `leftAddon`, `rightAddon` | Form input with dark background and hairline focus ring. |
+| `Table` | `TableHeader`, `TableBody`, `TableRow`, `TableHead`, `TableCell` | Clean telemetry and data comparison table with tabular figures. |
+| `MetricCard` | With `label`, `value`, `change`, `isPositive`, `sparklineData` | Developer KPI card with trend pill and SVG sparklines. |
+| `Tabs` | `underline`, `pills` | Clean developer tab switchers. |
 | `Dialog` | `DialogHeader`, `DialogTitle`, `DialogBody`, `DialogFooter` | Accessible modal dialog with backdrop blur. |
 | `Alert` | `info`, `success`, `warning`, `danger` | Status alert banner with SVG icons. |
 | `Avatar` | `sm`, `md`, `lg` with `online`, `offline`, `busy` status dots | User avatar with fallback initials. |
 | `Separator` | `horizontal`, `vertical`, with optional text label | Hairline divider. |
-| `StripeMesh` | `mesh`, `voltage`, `sunset`, `aurora` gradients | Slanted ribbon background container (`skewY(-6deg)`). |
-

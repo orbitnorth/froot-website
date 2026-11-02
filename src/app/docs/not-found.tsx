@@ -8,34 +8,34 @@ export interface DocNotFoundProps {
 
 export default function DocNotFound({ currentPath }: DocNotFoundProps) {
   return (
-    <div class="py-12 text-center max-w-xl mx-auto">
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium text-[#cd3d64] bg-[#cd3d64]/10 mb-6">
-        <span class="w-1.5 h-1.5 rounded-full bg-[#cd3d64]" />
-        Documentation Page Not Found
+    <div class="py-16 text-center max-w-xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono text-neutral-400 border border-[#222226] bg-[#0c0c0e] mb-6">
+        <span class="w-1.5 h-1.5 rounded-full bg-rose-500" />
+        404 · Documentation Missing
       </div>
 
-      <h1 class="text-3xl sm:text-4xl font-light text-[#0a2540] tracking-tight">
-        404: Document Missing
+      <h1 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">
+        Document Not Found
       </h1>
 
-      <p class="mt-4 text-[16px] text-[#425466] leading-relaxed">
+      <p class="mt-4 text-base text-neutral-400 leading-relaxed">
         The documentation page you requested at{' '}
-        <code class="font-mono text-sm bg-[#f6f9fc] border border-[#e6ebf1] px-1.5 py-0.5 rounded text-[#0a2540]">
+        <code class="font-mono text-sm bg-[#121215] border border-[#222226] px-1.5 py-0.5 rounded text-neutral-200">
           {currentPath || '/docs/...'}
         </code>{' '}
-        does not exist or has been moved to another section.
+        does not exist or has moved.
       </p>
 
       <div class="mt-8 flex items-center justify-center gap-3">
         <a
           href="/docs"
-          class="inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-[14px] font-medium bg-[#635bff] text-white shadow-card hover:bg-[#5249e6] transition-colors"
+          class="btn btn-primary text-sm px-5 py-2 rounded-md font-semibold"
         >
           Documentation Overview
         </a>
         <a
           href="/"
-          class="inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-[14px] font-medium border border-[#e6ebf1] bg-white text-[#0a2540] shadow-card hover:bg-[#f6f9fc] transition-colors"
+          class="btn btn-secondary text-sm px-5 py-2 rounded-md"
         >
           Return Home
         </a>
@@ -43,4 +43,3 @@ export default function DocNotFound({ currentPath }: DocNotFoundProps) {
     </div>
   );
 }
-

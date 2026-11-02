@@ -13,11 +13,11 @@ export function DocsLayout({ currentPath, currentSlug, children }: DocsLayoutPro
   const activeSlug = currentSlug || currentPath || '/docs';
 
   return (
-    <div class="flex min-h-screen bg-white text-[#425466] selection:bg-[#635bff]/20 selection:text-[#635bff]">
+    <div class="flex min-h-screen bg-black text-[#ededed] selection:bg-white selection:text-black">
       {/* Mobile Drawer Overlay */}
       <div
         id="docs-backdrop"
-        class="fixed inset-0 bg-[#0a2540]/50 z-40 hidden md:hidden backdrop-blur-sm"
+        class="fixed inset-0 bg-black/80 z-40 hidden md:hidden backdrop-blur-sm"
         {...{ onclick: 'toggleDocsSidebar()' }}
       />
 
@@ -25,21 +25,21 @@ export function DocsLayout({ currentPath, currentSlug, children }: DocsLayoutPro
       <DocsSidebar currentSlug={activeSlug} />
 
       {/* RIGHT MAIN CONTENT AREA */}
-      <div class="flex-1 min-w-0 md:ml-72 lg:ml-80 flex flex-col min-h-screen">
+      <div class="flex-1 min-w-0 md:ml-72 lg:ml-80 flex flex-col min-h-screen bg-black">
         {/* Mobile Top Bar */}
-        <div class="md:hidden sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-[#e6ebf1] p-3.5 flex items-center justify-between">
+        <div class="md:hidden sticky top-0 z-30 bg-[#0a0a0c]/95 backdrop-blur-md border-b border-[#222226] p-3.5 flex items-center justify-between">
           <button
             type="button"
-            class="flex items-center gap-2 text-[#0a2540] hover:text-[#635bff]"
+            class="flex items-center gap-2 text-neutral-300 hover:text-white"
             {...{ onclick: 'toggleDocsSidebar()' }}
           >
-            <svg class="w-5 h-5 text-[#635bff]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5 text-neutral-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
             <span class="text-xs font-semibold">Docs Navigation</span>
           </button>
 
-          <a href="/" class="text-xs text-[#425466] hover:text-[#0a2540] flex items-center gap-1 font-medium">
+          <a href="/" class="text-xs text-neutral-400 hover:text-white flex items-center gap-1 font-medium">
             <span>← Home</span>
           </a>
         </div>
@@ -50,10 +50,10 @@ export function DocsLayout({ currentPath, currentSlug, children }: DocsLayoutPro
         </main>
 
         {/* Minimal Docs Footer */}
-        <footer class="mt-auto border-t border-[#e6ebf1] bg-[#f6f9fc] py-6 px-6 text-center text-xs text-[#425466]">
+        <footer class="mt-auto border-t border-[#222226] bg-[#070709] py-6 px-6 text-center text-xs text-neutral-500">
           <p>
             Froot &amp; FrootKit Documentation • Built with FrootKit SSG &amp; Preact SSR •{' '}
-            <a href="https://github.com/orbitnorth/froot" class="text-[#635bff] hover:underline font-medium">
+            <a href="https://github.com/orbitnorth/froot" class="text-neutral-300 hover:text-white hover:underline font-medium">
               GitHub
             </a>
           </p>

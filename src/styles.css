@@ -4,33 +4,34 @@
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
-  --color-brand: #635bff;
-  --color-brand-hover: #5249e6;
-  --color-navy: #0a2540;
-  --color-slate: #425466;
-  --color-surface: #f6f9fc;
-  --color-hairline: #e6ebf1;
-  --color-cyan: #00d4ff;
-  --color-success: #24b47e;
-  --color-error: #cd3d64;
-  --color-warn: #c98a00;
+  --color-canvas: #000000;
+  --color-surface: #0a0a0c;
+  --color-card: #0e0e11;
+  --color-card-hover: #141417;
+  --color-hairline: #222226;
+  --color-hairline-bright: #333338;
+  --color-brand: #ffffff;
+  --color-accent: #0070f3;
+  --color-cyan: #06b6d4;
+  --color-emerald: #10b981;
+  --color-amber: #f59e0b;
+  --color-rose: #f43f5e;
 }
 
 :root {
-  color-scheme: light;
-  --brand: #635bff;
-  --brand-hover: #5249e6;
-  --navy: #0a2540;
-  --slate: #425466;
-  --surface: #f6f9fc;
-  --hairline: #e6ebf1;
-  --cyan: #00d4ff;
-  --success: #24b47e;
-  --error: #cd3d64;
-  --warn: #c98a00;
-
-  --shadow-card: 0 2px 5px -1px rgba(50, 50, 93, 0.25), 0 1px 3px -1px rgba(0, 0, 0, 0.3);
-  --shadow-pop: 0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3);
+  color-scheme: dark;
+  --canvas: #000000;
+  --surface: #0a0a0c;
+  --card: #0e0e11;
+  --card-hover: #141417;
+  --hairline: #222226;
+  --hairline-bright: #333338;
+  --text-primary: #ededed;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --accent: #0070f3;
+  --cyan: #06b6d4;
+  --emerald: #10b981;
 }
 
 *, *::before, *::after {
@@ -38,8 +39,8 @@
 }
 
 html {
-  background-color: #ffffff;
-  color: var(--slate);
+  background-color: #000000;
+  color: #ededed;
   font-family: var(--font-sans);
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
@@ -50,13 +51,14 @@ body {
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
-  background-color: #ffffff;
+  background-color: #000000;
+  color: #ededed;
   font-size: 15px;
   line-height: 24px;
 }
 
 :focus-visible {
-  outline: 2px solid #635bff;
+  outline: 2px solid #ffffff;
   outline-offset: 2px;
 }
 
@@ -66,131 +68,146 @@ svg {
   max-width: 100%;
 }
 
-/* Stripe Design System Components */
-.hero-gradient {
-  background: linear-gradient(160deg, #635bff 0%, #7a73ff 38%, #00d4ff 100%);
-  clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+/* Vercel & Next.js Grid and Dot Background Textures */
+.bg-grid-pattern {
+  background-size: 40px 40px;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
 }
 
-@media (max-width: 768px) {
-  .hero-gradient {
-    clip-path: none;
-  }
+.bg-dot-pattern {
+  background-size: 24px 24px;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px);
 }
 
-.shadow-card {
-  box-shadow: 0 2px 5px -1px rgba(50, 50, 93, 0.25), 0 1px 3px -1px rgba(0, 0, 0, 0.3);
+.glow-radial-top {
+  background: radial-gradient(ellipse 80% 50% at 50% -20%, rgba(120, 119, 198, 0.18), transparent 70%);
 }
 
-.shadow-pop {
-  box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3);
+.glow-spotlight {
+  background: radial-gradient(circle 600px at 50% 0%, rgba(255, 255, 255, 0.06), transparent 70%);
 }
 
-/* Stripe Button Variants */
+/* Developer High-Contrast Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border-radius: 9999px;
-  padding: 0.625rem 1.25rem;
-  font-size: 15px;
+  border-radius: 0.5rem;
+  padding: 0.55rem 1.15rem;
+  font-size: 14px;
   font-weight: 500;
   line-height: 1.25rem;
-  transition: all 150ms cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition: all 150ms cubic-bezier(0.2, 0.8, 0.2, 1);
   cursor: pointer;
   user-select: none;
+  text-decoration: none;
+  white-space: nowrap;
 }
 
-.btn-primary, .btn-p {
-  background-color: #635bff;
+/* Monochromatic Vercel Primary Button */
+.btn-primary, .btn-p, .btn-white, .btn-w {
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #ffffff;
+  font-weight: 550;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.btn-primary:hover, .btn-p:hover, .btn-white:hover, .btn-w:hover {
+  background-color: #e4e4e7;
+  border-color: #e4e4e7;
+  transform: translateY(-1px);
+}
+
+/* Sleek Dark Developer Secondary Button */
+.btn-secondary, .btn-s, .btn-dark, .btn-n {
+  background-color: #0d0e11;
+  color: #ededed;
+  border: 1px solid #222226;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+.btn-secondary:hover, .btn-s:hover, .btn-dark:hover, .btn-n:hover {
+  background-color: #141417;
+  border-color: #333338;
   color: #ffffff;
-  box-shadow: 0 2px 5px -1px rgba(50, 50, 93, 0.25), 0 1px 3px -1px rgba(0, 0, 0, 0.3);
-}
-.btn-primary:hover, .btn-p:hover {
-  background-color: #5249e6;
+  transform: translateY(-1px);
 }
 
-.btn-white, .btn-w {
-  background-color: #ffffff;
-  color: #635bff;
-  box-shadow: 0 2px 5px -1px rgba(50, 50, 93, 0.25), 0 1px 3px -1px rgba(0, 0, 0, 0.3);
-}
-.btn-white:hover, .btn-w:hover {
-  background-color: #f6f9fc;
-}
-
-.btn-secondary, .btn-s {
-  border: 1px solid #e6ebf1;
-  background-color: #ffffff;
-  color: #0a2540;
-  box-shadow: 0 1px 3px rgba(50, 50, 93, 0.08), 0 1px 0 rgba(0, 0, 0, 0.02);
-}
-.btn-secondary:hover, .btn-s:hover {
-  background-color: #f6f9fc;
-}
-
+/* Glass / Translucent Button */
 .btn-glass, .btn-gl {
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  color: #ffffff;
-  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #ededed;
+  background-color: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(8px);
 }
 .btn-glass:hover, .btn-gl:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.btn-dark, .btn-n {
-  background-color: #0a2540;
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
   color: #ffffff;
-  box-shadow: 0 2px 5px -1px rgba(50, 50, 93, 0.25), 0 1px 3px -1px rgba(0, 0, 0, 0.3);
-}
-.btn-dark:hover, .btn-n:hover {
-  background-color: #425466;
 }
 
-/* Stripe Badges */
+/* Ghost Button */
+.btn-ghost {
+  background-color: transparent;
+  color: #a1a1aa;
+  border: 1px solid transparent;
+}
+.btn-ghost:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.06);
+}
+
+/* Monospace & Developer Badges */
 .bd {
   display: inline-flex;
   align-items: center;
   gap: 0.375rem;
   border-radius: 9999px;
-  padding: 0.25rem 0.625rem;
-  font-size: 13px;
+  padding: 0.2rem 0.6rem;
+  font-size: 12px;
   font-weight: 500;
-  line-height: 1;
+  font-family: var(--font-mono);
+  line-height: 1.2;
+  border: 1px solid #222226;
+  background-color: rgba(255, 255, 255, 0.03);
+  color: #a1a1aa;
 }
 
-/* Stripe Inputs */
+/* Sleek Developer Inputs */
 .inp {
   width: 100%;
-  border-radius: 6px;
-  border: 1px solid #e6ebf1;
-  background-color: #ffffff;
-  padding: 0.5rem 0.75rem;
-  font-size: 15px;
-  color: #0a2540;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.03);
+  border-radius: 0.5rem;
+  border: 1px solid #222226;
+  background-color: #0a0a0c;
+  padding: 0.5rem 0.85rem;
+  font-size: 14px;
+  color: #ededed;
   outline: none;
-  transition: all 150ms cubic-bezier(0.215, 0.61, 0.355, 1);
+  transition: all 150ms ease;
 }
 .inp:focus {
-  border-color: #635bff;
-  box-shadow: 0 0 0 3px rgba(99, 91, 255, 0.25);
+  border-color: #52525b;
+  box-shadow: 0 0 0 1px #52525b;
+}
+.inp::placeholder {
+  color: #52525b;
 }
 
-/* Elevated Code Window in Stripe Navy */
+/* Developer Code Window & Terminal */
 .code-window {
-  background-color: #0a2540;
+  background-color: #08080a;
+  border: 1px solid #222226;
   border-radius: 0.75rem;
   overflow: hidden;
-  box-shadow: 0 13px 27px -5px rgba(50, 50, 93, 0.25), 0 8px 16px -8px rgba(0, 0, 0, 0.3);
-  color: #ffffff;
+  color: #ededed;
 }
 
 .code-window-header {
-  background-color: rgba(255, 255, 255, 0.04);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 0.625rem 1rem;
+  background-color: #0d0d10;
+  border-bottom: 1px solid #222226;
+  padding: 0.65rem 1rem;
 }
 
 /* Tab button inside code studio */
@@ -199,52 +216,55 @@ svg {
   font-family: var(--font-mono);
   padding: 0.35rem 0.75rem;
   border-radius: 0.375rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: #71717a;
   transition: all 150ms ease;
   cursor: pointer;
+  background-color: transparent;
+  border: 1px solid transparent;
 }
 .tab-btn:hover {
-  color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.08);
+  color: #d4d4d8;
+  background-color: rgba(255, 255, 255, 0.04);
 }
 .tab-btn.active {
   color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.12);
 }
 
-/* Stripe Documentation Prose Styles */
+/* Developer Documentation Prose Styles (Dark Theme) */
 .prose {
-  color: #425466;
+  color: #a1a1aa;
   line-height: 1.75;
   font-size: 15px;
 }
 
 .prose h1 {
-  color: #0a2540;
+  color: #ffffff;
   font-size: 2.25rem;
-  font-weight: 300;
+  font-weight: 600;
   letter-spacing: -0.025em;
-  line-height: 1.15;
-  margin-bottom: 1.5rem;
+  line-height: 1.2;
+  margin-bottom: 1.25rem;
 }
 
 .prose h2 {
-  color: #0a2540;
+  color: #f4f4f5;
   font-size: 1.5rem;
-  font-weight: 400;
-  letter-spacing: -0.015em;
-  margin-top: 2rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-top: 2.25rem;
   margin-bottom: 0.75rem;
-  border-bottom: 1px solid #e6ebf1;
+  border-bottom: 1px solid #222226;
   padding-bottom: 0.5rem;
 }
 
 .prose h3 {
-  color: #0a2540;
-  font-size: 1.15rem;
-  font-weight: 500;
-  margin-top: 1.5rem;
+  color: #e4e4e7;
+  font-size: 1.2rem;
+  font-weight: 550;
+  letter-spacing: -0.015em;
+  margin-top: 1.75rem;
   margin-bottom: 0.5rem;
 }
 
@@ -252,6 +272,7 @@ svg {
   margin-top: 1rem;
   margin-bottom: 1rem;
   line-height: 1.7;
+  color: #a1a1aa;
 }
 
 .prose ul, .prose ol {
@@ -263,31 +284,34 @@ svg {
 .prose li {
   margin-top: 0.35rem;
   margin-bottom: 0.35rem;
+  color: #a1a1aa;
 }
 
 .prose a {
-  color: #635bff;
+  color: #38bdf8;
   text-decoration: underline;
   text-underline-offset: 3px;
   font-weight: 500;
+  transition: color 150ms ease;
 }
 .prose a:hover {
-  color: #5249e6;
+  color: #7dd3fc;
 }
 
 .prose code {
-  color: #0a2540;
-  background: #f6f9fc;
-  border: 1px solid #e6ebf1;
-  padding: 0.15rem 0.35rem;
+  color: #f4f4f5;
+  background-color: #121215;
+  border: 1px solid #27272a;
+  padding: 0.15rem 0.4rem;
   border-radius: 0.25rem;
   font-size: 0.875em;
   font-family: var(--font-mono);
 }
 
 .prose pre {
-  background-color: #0a2540;
-  color: #ffffff;
+  background-color: #070709;
+  color: #ededed;
+  border: 1px solid #222226;
   border-radius: 0.5rem;
   padding: 1rem;
   overflow-x: auto;
@@ -296,7 +320,6 @@ svg {
   line-height: 1.6;
   margin-top: 1.25rem;
   margin-bottom: 1.25rem;
-  box-shadow: 0 2px 5px -1px rgba(50, 50, 93, 0.25), 0 1px 3px -1px rgba(0, 0, 0, 0.3);
 }
 
 .prose pre code {
@@ -306,11 +329,38 @@ svg {
   color: inherit;
 }
 
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  font-size: 14px;
+}
+
+.prose th {
+  background-color: #0d0d10;
+  color: #ededed;
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+  border: 1px solid #222226;
+  text-align: left;
+}
+
+.prose td {
+  padding: 0.75rem 1rem;
+  border: 1px solid #222226;
+  color: #a1a1aa;
+}
+
+.prose tr:nth-child(even) td {
+  background-color: rgba(255, 255, 255, 0.015);
+}
+
 /* Animations */
 @keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -319,7 +369,7 @@ svg {
 }
 
 .rise {
-  animation: rise 0.5s cubic-bezier(0.215, 0.61, 0.355, 1) both;
+  animation: rise 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* Accessibility: Reduced Motion */
