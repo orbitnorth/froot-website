@@ -19,7 +19,7 @@ FrootKit adopts Next.js App Router conventions inside `src/app/`. Folders define
 
 ## Routing Examples
 
-```
+```text
 src/app/
 ├── layout.tsx         -> Root document layout
 ├── page.tsx           -> /

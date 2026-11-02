@@ -63,7 +63,7 @@ export default function DocsLayout({ children }: { children: ComponentChildren }
 
 When navigating to `/docs/quickstart`, the rendering pipeline embeds the components hierarchically:
 
-```
+```text
 RootLayout (src/app/layout.tsx)
  └── DocsLayout (src/app/docs/layout.tsx)
       └── DocsQuickstartPage (src/app/docs/[slug]/page.tsx)

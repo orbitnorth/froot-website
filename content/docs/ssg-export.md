@@ -26,7 +26,7 @@ This performs the following steps in under a second:
 
 Similar to Next.js creating a `.next` folder, FrootKit outputs to `.froot`:
 
-```
+```text
 .froot/
 ├── index.html               -> /
 ├── styles.css               -> Compiled Tailwind CSS

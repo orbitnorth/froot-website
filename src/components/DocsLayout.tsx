@@ -104,6 +104,20 @@ export function DocsLayout({ currentPath, currentSlug, children }: DocsLayoutPro
               });
             }
 
+            function fallbackCopy(text, cb) {
+              try {
+                const ta = document.createElement('textarea');
+                ta.value = text;
+                ta.style.position = 'fixed';
+                ta.style.opacity = '0';
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                cb();
+              } catch (e) {}
+            }
+
             function copyCode(btn) {
               if (!btn) return;
               const card = btn.closest('.code-card') || btn.closest('.code-window') || btn.parentElement;
@@ -111,7 +125,7 @@ export function DocsLayout({ currentPath, currentSlug, children }: DocsLayoutPro
               const codeEl = card.querySelector('code') || card.querySelector('pre');
               const text = codeEl ? (codeEl.innerText || codeEl.textContent || '') : '';
               if (!text) return;
-              navigator.clipboard.writeText(text.trim()).then(function() {
+              function onSuccess() {
                 const prev = btn.textContent;
                 btn.textContent = 'Copied!';
                 btn.classList.add('text-white', 'border-white/40');
@@ -119,9 +133,67 @@ export function DocsLayout({ currentPath, currentSlug, children }: DocsLayoutPro
                   btn.textContent = prev;
                   btn.classList.remove('text-white', 'border-white/40');
                 }, 2000);
-              });
+              }
+              if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text.trim()).then(onSuccess).catch(function() {
+                  fallbackCopy(text.trim(), onSuccess);
+                });
+              } else {
+                fallbackCopy(text.trim(), onSuccess);
+              }
             }
             window.copyCode = copyCode;
+
+            // Client Active Nav Link Sync
+            (function() {
+              const pathname = window.location.pathname.replace(/\/$/, '') || '/docs';
+              const links = document.querySelectorAll('.doc-nav-link');
+              let hasActive = false;
+              links.forEach(link => {
+                const href = link.getAttribute('href')?.replace(/\/$/, '') || '';
+                const isCurrent = href === pathname || (href === '/docs' && (pathname === '/docs' || pathname === '/docs/overview'));
+                if (isCurrent) {
+                  hasActive = true;
+                  link.classList.add('bg-[#18181c]', 'text-white', 'border', 'border-[#2e2e34]', 'font-medium');
+                  link.classList.remove('text-neutral-400');
+                } else {
+                  link.classList.remove('bg-[#18181c]', 'text-white', 'border', 'border-[#2e2e34]', 'font-medium');
+                  link.classList.add('text-neutral-400');
+                }
+              });
+            })();
+
+            // Table of Contents Scrollspy
+            (function() {
+              const tocLinks = document.querySelectorAll('.doc-toc-link');
+              if (!tocLinks.length) return;
+              const headings = document.querySelectorAll('article h2[id], article h3[id]');
+              if (!headings.length) return;
+
+              const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                  if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute('id');
+                    if (!id) return;
+                    tocLinks.forEach(function(link) {
+                      if (link.getAttribute('href') === '#' + id) {
+                        link.classList.add('text-white', 'font-medium');
+                        link.classList.remove('text-neutral-400', 'text-neutral-500');
+                      } else {
+                        link.classList.remove('text-white');
+                        if (link.classList.contains('pl-3.5')) {
+                          link.classList.add('text-neutral-500');
+                        } else {
+                          link.classList.add('text-neutral-400');
+                        }
+                      }
+                    });
+                  }
+                });
+              }, { rootMargin: '0px 0px -75% 0px', threshold: 0.1 });
+
+              headings.forEach(function(h) { observer.observe(h); });
+            })();
           `,
         }}
       />

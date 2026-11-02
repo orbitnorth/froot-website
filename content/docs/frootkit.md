@@ -29,7 +29,7 @@ The interactive wizard will prompt you for your project name and initialize a cl
 
 A freshly scaffolded FrootKit project contains only application code:
 
-```
+```text
 my-app/
 ├── package.json
 ├── tsconfig.json

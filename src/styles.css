@@ -261,6 +261,7 @@ svg {
   margin-bottom: 0.85rem;
   border-bottom: 1px solid #222226;
   padding-bottom: 0.5rem;
+  scroll-margin-top: 5.5rem;
 }
 
 .prose h3 {
@@ -270,6 +271,7 @@ svg {
   letter-spacing: -0.015em;
   margin-top: 2rem;
   margin-bottom: 0.6rem;
+  scroll-margin-top: 5.5rem;
 }
 
 .prose p {
